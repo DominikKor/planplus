@@ -4,11 +4,15 @@ from selenium.webdriver import Firefox, Keys
 from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+from selenium.webdriver.firefox.options import Options
 
 
 def get_full_schedule() -> dict:
+    options = Options()
+    options.headless = True
     binary = FirefoxBinary("/home/droko/Downloads/firefox-66.0.5/firefox/firefox-bin")
-    driver = Firefox(firefox_binary=binary)
+    driver = Firefox(firefox_binary=binary, options=options)
+
     driver.get("https://vplan.gymnasium-meine.de/mobil095/")
 
     alert = Alert(driver)
