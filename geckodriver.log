@@ -116,3 +116,29 @@ JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1
 JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
 1646779425120	Marionette	INFO	Stopped listening on port 45067
 1646779435824	geckodriver	INFO	Listening on 127.0.0.1:41277
+1646780572566	geckodriver	INFO	Listening on 127.0.0.1:36649
+1646780572569	mozrunner::runner	INFO	Running command: "/home/droko/Downloads/firefox-66.0.5/firefox/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "52377" "-no-remote" "-profile" "/tmp/rust_mozprofile7ZZ2ns"
+*** You are running in headless mode.
+1646780572837	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1646780572838	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1646780572838	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1646780573981	Marionette	INFO	Listening on port 38321
+1646780574085	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1646780591477	Marionette	INFO	Stopped listening on port 38321
+1646780778025	geckodriver	INFO	Listening on 127.0.0.1:35437
+1646780778535	mozrunner::runner	INFO	Running command: "/home/droko/Downloads/firefox-66.0.5/firefox/firefox-bin" "--marionette" "-headless" "--remote-debugging-port" "56527" "-no-remote" "-profile" "/tmp/rust_mozprofilej7Gatt"
+*** You are running in headless mode.
+1646780778774	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1646780778774	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1646780778774	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1646780779594	Marionette	INFO	Listening on port 39961
+1646780779639	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1646780797331	Marionette	INFO	Stopped listening on port 39961
