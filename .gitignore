@@ -1,3 +1,7 @@
 .idea/
 .env
 venv/
+vnev/
+geckodriver.log
+nohup.out
+
