@@ -1,0 +1,8 @@
+.red {
+    color: red !important;
+}
+
+.plan-table {
+    display: inline-block;
+    width: 24%;
+}

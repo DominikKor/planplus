@@ -1,1 +1,45 @@
-{{ plan_dict }}
+{% extends "base.html" %}
+
+{% block title %}PMG - Vertretungsplan{% endblock %}
+
+{% block content %}
+    {% for plan in plans %}
+        <table class="table table-striped plan-table my-3" style="display: inline-block; width: 24%;">
+            <thead>
+            <tr>
+                <th scope="col">{{ plan.cls }}</th>
+                <th scope="col">Lehrer</th>
+                <th scope="col">Raum</th>
+                <th scope="col">Unterricht</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for period in plan.periods.all %}
+                <tr>
+                {% if period.is_cancelled %}
+                    <th scope="row" class="table-danger">{{ period.number }}</th>
+                    <td class="table-danger">{{ period.teacher }}</td>
+                    <td class="table-danger">{{ period.subject }}</td>
+                    <td class="table-danger red">Fällt aus</td>
+                {% elif period.is_substituted %}
+                    <th scope="row">{{ period.number }}</th>
+                    <td class="red">{{ period.teacher }}</td>
+                    <td>{{ period.room }}</td>
+                    <td>{{ period.subject }}</td>
+                {% else %}
+                    <th scope="row">{{ period.number }}</th>
+                    <td>{{ period.teacher }}</td>
+                    <td>{{ period.room }}</td>
+                    <td>{{ period.subject }}</td>
+                {% endif %}
+                </tr>
+            {% empty %}
+                <tr>
+                    <th scope="row">-</th>
+                    <td colspan="3">Keine Einträge</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+{% endblock %}
