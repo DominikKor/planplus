@@ -1,4 +1,5 @@
 import json
+import time
 
 from selenium.webdriver import Firefox, Keys
 from selenium.webdriver.common.alert import Alert
@@ -9,7 +10,7 @@ from selenium.webdriver.firefox.options import Options
 
 def get_full_schedule() -> dict:
     options = Options()
-    options.headless = True#False
+    options.headless = False
     binary = FirefoxBinary("/home/droko/Downloads/firefox-66.0.5/firefox/firefox-bin")
     driver = Firefox(firefox_binary=binary, options=options)
 

@@ -16,6 +16,8 @@ def update_db():
         for period in periods:
             is_substituted = "für" in period
             is_cancelled = "---" in period
+            if period[-1] == " ":  # If no room is provided
+                period = period[:-1] + "-"
             number, subject, teacher, room, *extra = period.split()
             if is_cancelled:  # Change field positions because of "---"
                 subject = teacher
