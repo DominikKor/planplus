@@ -1,12 +1,12 @@
 from celery import shared_task
 import datetime
+from plan.models import Period, Plan
+from scripts.main import get_plan
 
 
 @shared_task
 def update_db():
     print("Updating db:", datetime.datetime.now())
-    from plan.models import Period, Plan
-    from scripts.main import get_plan
     plan_dict = get_plan(refresh=True)
     old_plans = list(Plan.objects.all())
     plans = []
