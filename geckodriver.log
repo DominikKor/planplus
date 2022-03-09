@@ -155,3 +155,123 @@ JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1
 JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
 JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
 1646812438842	Marionette	INFO	Stopped listening on port 38879
+1646836439031	geckodriver	INFO	Listening on 127.0.0.1:59403
+1646836439535	mozrunner::runner	INFO	Running command: "/home/droko/Downloads/firefox-66.0.5/firefox/firefox-bin" "--marionette" "--remote-debugging-port" "35583" "-no-remote" "-profile" "/tmp/rust_mozprofileiQERrF"
+1646836440111	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1646836440111	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1646836440112	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1646836441503	Marionette	INFO	Listening on port 42503
+1646836441608	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+[Parent 20557, Gecko_IOThread] WARNING: pipe error (90): Connection reset by peer: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 357
+1646836445594	Marionette	INFO	Stopped listening on port 42503
+1646838390009	geckodriver	INFO	Listening on 127.0.0.1:35561
+1646838390014	mozrunner::runner	INFO	Running command: "/home/droko/Downloads/firefox-66.0.5/firefox/firefox-bin" "--marionette" "--remote-debugging-port" "51899" "-no-remote" "-profile" "/tmp/rust_mozprofileedbGPW"
+1646838390482	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1646838390483	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1646838390483	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1646838391853	Marionette	INFO	Listening on port 38915
+1646838391982	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1646838394563	Marionette	INFO	Stopped listening on port 38915
+1646838429715	geckodriver	INFO	Listening on 127.0.0.1:59481
+1646838429719	mozrunner::runner	INFO	Running command: "/home/droko/Downloads/firefox-66.0.5/firefox/firefox-bin" "--marionette" "--remote-debugging-port" "43089" "-no-remote" "-profile" "/tmp/rust_mozprofileq4wGXK"
+1646838430239	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1646838430239	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1646838430240	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1646838431638	Marionette	INFO	Listening on port 41209
+1646838431784	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1646838433503	Marionette	INFO	Stopped listening on port 41209
+1646838485503	geckodriver	INFO	Listening on 127.0.0.1:54491
+1646838485511	mozrunner::runner	INFO	Running command: "/home/droko/Downloads/firefox-66.0.5/firefox/firefox-bin" "--marionette" "--remote-debugging-port" "55281" "-no-remote" "-profile" "/tmp/rust_mozprofilecMSpRo"
+1646838485962	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1646838485962	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1646838485963	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1646838487499	Marionette	INFO	Listening on port 41943
+1646838487533	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+[Parent 58896, Gecko_IOThread] WARNING: pipe error (81): Connection reset by peer: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 357
+1646838491768	Marionette	INFO	Stopped listening on port 41943
+1646838905817	geckodriver	INFO	Listening on 127.0.0.1:57281
+1646838905823	mozrunner::runner	INFO	Running command: "/home/droko/Downloads/firefox-66.0.5/firefox/firefox-bin" "--marionette" "--remote-debugging-port" "59627" "-no-remote" "-profile" "/tmp/rust_mozprofilerrGF8T"
+1646838906368	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1646838906369	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1646838906369	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1646838907856	Marionette	INFO	Listening on port 42169
+1646838908086	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: resource:///actors/SearchTelemetryChild.jsm, line 160: TypeError: this.content is null
+1646838913636	Marionette	INFO	Stopped listening on port 42169
+1646840799401	geckodriver	INFO	Listening on 127.0.0.1:45811
+1646840799410	mozrunner::runner	INFO	Running command: "/home/droko/Downloads/firefox-66.0.5/firefox/firefox-bin" "--marionette" "--remote-debugging-port" "45401" "-no-remote" "-profile" "/tmp/rust_mozprofilegCPyB5"
+1646840799799	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1646840799799	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1646840799799	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1646840800902	Marionette	INFO	Listening on port 44069
+1646840800925	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+[Parent 101901, Gecko_IOThread] WARNING: pipe error (93): Connection reset by peer: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 357
+1646840805491	Marionette	INFO	Stopped listening on port 44069
+1646840820024	geckodriver	INFO	Listening on 127.0.0.1:34415
+1646840820027	mozrunner::runner	INFO	Running command: "/home/droko/Downloads/firefox-66.0.5/firefox/firefox-bin" "--marionette" "--remote-debugging-port" "49979" "-no-remote" "-profile" "/tmp/rust_mozprofile0ilJwN"
+1646840820413	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1646840820413	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1646840820413	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1646840821524	Marionette	INFO	Listening on port 46593
+1646840821538	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1646840824636	Marionette	INFO	Stopped listening on port 46593

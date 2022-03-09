@@ -9,7 +9,7 @@ from selenium.webdriver.firefox.options import Options
 
 def get_full_schedule() -> dict:
     options = Options()
-    options.headless = True
+    options.headless = False#True
     binary = FirefoxBinary("/home/droko/Downloads/firefox-66.0.5/firefox/firefox-bin")
     driver = Firefox(firefox_binary=binary, options=options)
 
