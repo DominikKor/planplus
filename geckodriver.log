@@ -523,3 +523,79 @@ JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1
 JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
 JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
 1647117063263	Marionette	INFO	Stopped listening on port 41401
+1647193272393	geckodriver	INFO	Listening on 127.0.0.1:36585
+1647193272404	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "42199" "-no-remote" "-profile" "/tmp/rust_mozprofileExLg78"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1647193274046	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileExLg78/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:42199/devtools/browser/bdcc3f98-537b-4c62-b50b-f3ae1629c32c
+1647193275482	Marionette	INFO	Listening on port 46153
+1647193275533	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1647193287359	Marionette	INFO	Stopped listening on port 46153
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+
+###!!! [Parent][PImageBridgeParent] Error: RunMessage(msgname=PImageBridge::Msg_WillClose) Channel closing: too late to send/recv, messages will be lost
+
+1647193339932	geckodriver	INFO	Listening on 127.0.0.1:56907
+1647193339942	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "49817" "-no-remote" "-profile" "/tmp/rust_mozprofileRT5dyd"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1647193341527	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileRT5dyd/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:49817/devtools/browser/a600198c-a2c4-4d90-b4ce-c705092a887d
+1647193342953	Marionette	INFO	Listening on port 46787
+1647193343064	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1647193348555	Marionette	INFO	Stopped listening on port 46787
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+
+###!!! [Parent][PImageBridgeParent] Error: RunMessage(msgname=PImageBridge::Msg_WillClose) Channel closing: too late to send/recv, messages will be lost
+
+1647193361648	geckodriver	INFO	Listening on 127.0.0.1:53807
+1647193361654	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "58743" "-no-remote" "-profile" "/tmp/rust_mozprofileVhdbgO"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1647193363557	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileVhdbgO/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:58743/devtools/browser/6c417d11-9e4b-491b-84d8-91dc8fa8ec81
+1647193364977	Marionette	INFO	Listening on port 45633
+1647193365076	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://schueler:geheim@vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1647193385533	Marionette	INFO	Stopped listening on port 45633
+
+###!!! [Parent][PImageBridgeParent] Error: RunMessage(msgname=PImageBridge::Msg_WillClose) Channel closing: too late to send/recv, messages will be lost
+
+1647193551935	geckodriver	INFO	Listening on 127.0.0.1:59377
+1647193551940	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "34911" "-no-remote" "-profile" "/tmp/rust_mozprofileEwXmK6"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1647193553511	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileEwXmK6/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:34911/devtools/browser/c75ddbbc-dfb0-49d6-ad57-21af47042bcb
+1647193554931	Marionette	INFO	Listening on port 39259
+1647193554962	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://schueler:geheim@vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://vplan.gymnasium-meine.de/mobil095/js/jquery.mobile-1.3.2.min.js, line 8: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1647193557067	Marionette	INFO	Stopped listening on port 39259
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+
+###!!! [Parent][PImageBridgeParent] Error: RunMessage(msgname=PImageBridge::Msg_WillClose) Channel closing: too late to send/recv, messages will be lost
+

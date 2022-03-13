@@ -1,7 +1,6 @@
 from django.shortcuts import render
 
-from scripts.main import get_plan
-from .models import Plan, Period
+from .models import Plan
 
 
 def plan(request):
