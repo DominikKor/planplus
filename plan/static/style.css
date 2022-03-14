@@ -2,7 +2,7 @@
     color: red !important;
 }
 
-.plan-table {
+.table-wrapper {
     display: inline-block;
-    width: 24%;
 }
+

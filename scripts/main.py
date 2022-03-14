@@ -7,7 +7,7 @@ from selenium.webdriver.firefox.options import Options
 def get_full_schedule() -> dict:
     options = Options()
     options.headless = True
-    binary = FirefoxBinary("/usr/bin/firefox")
+    binary = FirefoxBinary("/usr/bin/firefox/firefox-bin")
     driver = Firefox(firefox_binary=binary, options=options)
 
     PLAN_WEBSITE = "vplan.gymnasium-meine.de/mobil095"

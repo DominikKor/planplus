@@ -1,7 +1,9 @@
 .idea/
 .env
 venv/
-vnev/
 geckodriver.log
+celerybeat-schedule
 nohup.out
-
+__pycache__/
+*.pyc
+*.pyo

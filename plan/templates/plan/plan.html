@@ -4,7 +4,8 @@
 
 {% block content %}
     {% for plan in plans %}
-        <table class="table table-striped plan-table my-3" style="display: inline-block; width: 24%;">
+    <div class="col-md-3 table-wrapper">
+        <table class="table table-striped plan-table mx-2 my-5">
             <thead>
             <tr>
                 <th scope="col">{{ plan.cls }}</th>
@@ -41,5 +42,6 @@
             {% endfor %}
             </tbody>
         </table>
+    </div>
     {% endfor %}
 {% endblock %}
