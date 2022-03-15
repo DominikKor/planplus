@@ -1,3 +1,7 @@
 .red {
     color: red !important;
 }
+
+#logo {
+    font-size: 60px;
+}

@@ -6,27 +6,28 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static "style.css" %}">
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
 <header>
     <div class="px-3 py-2 bg-dark text-white">
-      <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start mt-3">
-          <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-            <svg data-v-423bf9ae="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 100" class="font"><g data-v-423bf9ae="" id="d09ea3c3-321b-4fc2-8865-0d718d79a8d0" fill="white" transform="matrix(5.830904483795166,0,0,5.830904483795166,-6.06415319442749,-21.282804489135742)"><path d="M1.04 13.78L3.09 13.78L3.09 10.63L4.37 10.63C6.30 10.63 7.94 9.66 7.94 7.50C7.94 5.26 6.34 4.54 4.37 4.54L1.04 4.54ZM3.09 8.99L3.09 6.17L4.24 6.17C5.33 6.17 5.91 6.52 5.91 7.50C5.91 8.47 5.38 8.99 4.24 8.99ZM13.93 13.94C14.80 13.94 15.29 13.79 16.02 13.55L15.55 12.04C15.12 12.22 14.78 12.28 14.46 12.28C13.89 12.28 13.34 11.98 13.34 11.10L13.34 3.65L9.27 3.65L9.27 5.28L11.28 5.28L11.28 11.00C11.28 12.81 12.18 13.94 13.93 13.94ZM19.94 13.94C20.83 13.94 21.70 13.51 22.40 12.96L22.46 12.96L22.61 13.78L24.29 13.78L24.29 9.66C24.29 7.50 23.10 6.45 21.15 6.45C19.96 6.45 18.86 6.87 18.19 7.43L18.91 8.78C19.42 8.37 20.08 8.11 20.75 8.11C21.69 8.11 22.16 8.51 22.23 9.18C18.94 9.39 17.65 10.21 17.65 11.80C17.65 13.01 18.54 13.94 19.94 13.94ZM20.59 12.35C20.01 12.35 19.63 12.12 19.63 11.65C19.63 11.00 20.19 10.54 22.23 10.42L22.23 11.65C21.74 12.05 21.21 12.35 20.59 12.35ZM26.21 13.78L28.27 13.78L28.27 9.00C28.76 8.48 29.12 8.20 29.68 8.20C30.44 8.20 30.70 8.65 30.70 9.63L30.70 13.78L32.76 13.78L32.76 9.37C32.76 7.56 32.06 6.45 30.49 6.45C29.46 6.45 28.70 6.99 28.10 7.60L28.04 7.60L27.89 6.64L26.21 6.64ZM34.64 13.78L36.69 13.78L36.69 10.63L37.97 10.63C39.90 10.63 41.54 9.66 41.54 7.50C41.54 5.26 39.94 4.54 37.97 4.54L34.64 4.54ZM36.69 8.99L36.69 6.17L37.84 6.17C38.93 6.17 39.51 6.52 39.51 7.50C39.51 8.47 38.98 8.99 37.84 8.99ZM47.53 13.94C48.40 13.94 48.89 13.79 49.62 13.55L49.15 12.04C48.72 12.22 48.38 12.28 48.06 12.28C47.49 12.28 46.94 11.98 46.94 11.10L46.94 3.65L42.87 3.65L42.87 5.28L44.88 5.28L44.88 11.00C44.88 12.81 45.78 13.94 47.53 13.94ZM53.52 13.94C54.52 13.94 55.24 13.47 55.86 12.74L55.92 12.74L56.07 13.78L57.75 13.78L57.75 6.64L55.69 6.64L55.69 11.34C55.22 12.00 54.85 12.19 54.33 12.19C53.56 12.19 53.33 11.76 53.33 10.78L53.33 6.64L51.27 6.64L51.27 11.05C51.27 12.85 51.94 13.94 53.52 13.94ZM62.94 13.94C65.17 13.94 66.36 12.95 66.36 11.66C66.36 10.43 65.17 9.90 63.80 9.52C62.82 9.25 62.02 9.03 62.02 8.58C62.02 8.20 62.36 7.99 63.22 7.99C63.95 7.99 64.62 8.27 65.25 8.67L66.18 7.43C65.45 6.96 64.41 6.45 63.18 6.45C61.19 6.45 59.98 7.36 59.98 8.68C59.98 9.81 61.24 10.42 62.45 10.77C63.57 11.09 64.32 11.34 64.32 11.79C64.32 12.18 63.92 12.42 62.99 12.42C62.06 12.42 61.26 12.08 60.47 11.56L59.54 12.85C60.42 13.45 61.70 13.94 62.94 13.94Z"></path></g></svg>
-          </a>
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start mt-3">
+                <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                    <h1 id="logo">PlanPlus</h1>
+                </a>
+            </div>
         </div>
-      </div>
     </div>
     <div class="px-3 py-2 border-bottom">
-      <div class="container d-flex flex-wrap justify-content-center">
-          <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
-              <input type="search" class="form-control" placeholder="Suche..." aria-label="Suche">
-          </form>
-      </div>
+        <div class="container d-flex flex-wrap justify-content-center">
+            <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
+                <input type="search" class="form-control" placeholder="Suche..." aria-label="Suche">
+            </form>
+        </div>
     </div>
-  </header>
+</header>
 
 <main class="content container">{% block content %}{% endblock %}</main>
 
@@ -34,8 +35,8 @@
     <p class="col-md-4 mb-0 text-muted">&copy; 2022 Dominik Korolko</p>
 
     <ul class="nav col-md-4 justify-content-end">
-      <li class="nav-item"><a href="{% url "plan:plan" %}" class="nav-link px-2 text-muted">Home</a></li>
+        <li class="nav-item"><a href="{% url "plan:plan" %}" class="nav-link px-2 text-muted">Home</a></li>
     </ul>
-  </footer>
+</footer>
 </body>
 </html>
