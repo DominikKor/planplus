@@ -5,3 +5,8 @@
 #logo {
     font-size: 60px;
 }
+
+td a, th a {
+    color: inherit;
+    text-decoration: inherit;
+}

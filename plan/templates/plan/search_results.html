@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}PMG Vertretungsplan - Suche{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {% for key, value in plans.items %}
+            <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 my-3">
+                <h3 class="mt-3">Suche von <b>{{ table_head }}</b> als <b>{{ key }}</b></h3>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">
+                            {{ table_head }}
+                        </th>
+                        <th scope="col">Klasse</th>
+                        <th scope="col">Lehrer</th>
+                        <th scope="col">Unterricht</th>
+                        <th scope="col">Raum</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for period in value %}
+                        {% include "plan/tablerow.html" %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

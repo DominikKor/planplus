@@ -6,41 +6,40 @@
     <div class="row">
         {% for plan in plans %}
             <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 my-2">
+                {% if source == "Suchen" %}
+                    <h3>Für Suche als {{ plan }}</h3>
+                {% endif %}
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">{{ plan.cls }}</th>
+                        <th scope="col">
+                            {% if plan.cls %}
+                                <a href="{% url "plan:class" plan.cls %}">{{ plan.cls }}</a>
+                            {% else %}
+                                {{ table_head }}
+                            {% endif %}
+                        </th>
+                        {% if not plan.cls %}<th scope="col">Klasse</th>{% endif %}
                         <th scope="col">Lehrer</th>
-                        <th scope="col">Raum</th>
                         <th scope="col">Unterricht</th>
+                        <th scope="col">Raum</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for period in plan.periods.all %}
-                        <tr>
-                            {% if period.is_cancelled %}
-                                <th scope="row" class="table-danger">{{ period.number }}</th>
-                                <td class="table-danger">{{ period.teacher }}</td>
-                                <td class="table-danger">{{ period.subject }}</td>
-                                <td class="table-danger red">Fällt aus</td>
-                            {% elif period.is_substituted %}
-                                <th scope="row">{{ period.number }}</th>
-                                <td class="red">{{ period.teacher }}</td>
-                                <td>{{ period.room }}</td>
-                                <td>{{ period.subject }}</td>
-                            {% else %}
-                                <th scope="row">{{ period.number }}</th>
-                                <td>{{ period.teacher }}</td>
-                                <td>{{ period.room }}</td>
-                                <td>{{ period.subject }}</td>
-                            {% endif %}
-                        </tr>
-                    {% empty %}
-                        <tr>
-                            <th scope="row">-</th>
-                            <td colspan="3">Keine Einträge</td>
-                        </tr>
-                    {% endfor %}
+                    {% if plan.cls %}
+                        {% for period in plan.periods.all %}
+                            {% include "plan/tablerow.html" %}
+                        {% empty %}
+                            <tr>
+                                <th scope="row">-</th>
+                                <td colspan="3">Keine Einträge</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        {% for period in plan %}
+                            {% include "plan/tablerow.html" %}
+                        {% endfor %}
+                    {% endif %}
                     </tbody>
                 </table>
             </div>

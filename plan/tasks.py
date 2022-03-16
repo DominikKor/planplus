@@ -23,7 +23,7 @@ def update_db():
                 subject = teacher
                 teacher = extra[0 if not extra[0] == "Dr." else 1]  # Remove "Dr." from name
                 room = ""
-            Period.objects.create(plan=new_plan, number=number, room=room, teacher=teacher, subject=subject,
+            Period.objects.create(plan=new_plan, number=number[:-1], room=room, teacher=teacher, subject=subject,
                                   is_substituted=is_substituted, is_cancelled=is_cancelled)
 
     for old_plan in old_plans:

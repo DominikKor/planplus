@@ -1,0 +1,31 @@
+<tr {% if period.is_cancelled %}class="table-danger"{% endif %}>
+    <th scope="row">{{ period.number }}</th>
+
+    {% if not plan.cls %}
+        <td>
+        <a href="{% url "plan:class" period.plan.cls %}">
+                {{ period.plan.cls }}
+            </a>
+        </td>
+    {% endif %}
+
+    <td {% if period.is_substituted %}class="red"{% endif %}>
+        <a href="{% url "plan:teacher" period.teacher %}">
+            {{ period.teacher }}
+        </a>
+    </td>
+
+    <td>
+        {{ period.subject }}
+    </td>
+
+    <td {% if period.is_cancelled %}class="red"{% endif %}>
+        {% if period.is_cancelled %}
+            Fällt aus
+        {% else %}
+            <a href="{% url "plan:room" period.room %}">
+                {{ period.room }}
+            </a>
+        {% endif %}
+    </td>
+</tr>

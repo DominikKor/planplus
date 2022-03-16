@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}PMG - Vertretungsplan {{ title_end }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 my-2">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">{{ table_head }}</th>
+                        <th scope="col">Lehrer</th>
+                        <th scope="col">Unterricht</th>
+                        <th scope="col">Raum</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for period in periods %}
+                        <tr {% if period.is_cancelled %}class="table-danger"{% endif %}>
+                                <th scope="row">{{ period.number }}</th>
+                                <td {% if period.is_substituted %}class="red"{% endif %}>{{ period.teacher }}</td>
+                                <td>{{ period.room }}</td>
+                                <td {% if period.is_cancelled %}class="red"{% endif %}>
+                                    {% if period.is_cancelled %}
+                                        Fällt aus
+                                    {% else %}
+                                        {{ period.subject }}
+                                    {% endif %}
+                                </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <th scope="row">-</th>
+                            <td colspan="3">Keine Einträge</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+    </div>
+{% endblock %}
+

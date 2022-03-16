@@ -12,9 +12,16 @@ class Plan(models.Model):
 
 class Period(models.Model):
     plan = models.ForeignKey(Plan, related_name="periods", on_delete=models.CASCADE)
-    number = models.CharField(max_length=5)  # What 45minute index? e.g. 1 => 8:10-8:55
+    number = models.DecimalField(decimal_places=0, max_digits=2)  # What 45minute index? e.g. 1 => 8:10-8:55
     subject = models.CharField(max_length=10)
     teacher = models.CharField(max_length=5)  # max _should_ be 4 e.g. ("zzJz")
     room = models.CharField(max_length=5)
     is_substituted = models.BooleanField(default=False)
     is_cancelled = models.BooleanField(default=False)
+
+    def __eq__(self, other):
+        return \
+            self.number == other.number and \
+            self.subject == other.subject and \
+            self.room == other.room and \
+            self.teacher == other.teacher
