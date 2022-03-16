@@ -1,7 +1,11 @@
+import os
+from pathlib import Path
+
 from selenium.webdriver import Firefox
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.firefox.options import Options
+from dotenv import load_dotenv
 
 
 def get_full_schedule() -> dict:
@@ -10,9 +14,11 @@ def get_full_schedule() -> dict:
     binary = FirefoxBinary("/usr/bin/firefox/firefox-bin")
     driver = Firefox(firefox_binary=binary, options=options)
 
+    load_dotenv(os.path.join(Path(__file__).resolve().parent.parent, ".env"))
+
     PLAN_WEBSITE = "vplan.gymnasium-meine.de/mobil095"
-    USERNAME = "schueler"
-    PASSWORD = "geheim"
+    USERNAME = os.getenv("PLAN_USERNAME")
+    PASSWORD = os.getenv("PLAN_PASSWORD")
 
     driver.get(f"https://{USERNAME}:{PASSWORD}@{PLAN_WEBSITE}/")
     driver.get(f"https://{PLAN_WEBSITE}/auswahlkl.html")
