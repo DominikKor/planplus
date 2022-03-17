@@ -26,7 +26,8 @@ def class_(request, term: str):
     return render(request, "plan/plan.html", {"source": "Klassen", "plans": [periods], "table_head": term})
 
 
-def search(request, term: str):
+def search(request):
+    term = request.GET.get("q")
     class_periods = Period.objects.filter(plan__cls__contains=term).order_by("number")
     number_periods = Period.objects.filter(number__contains=term).order_by("number")
     teacher_periods = Period.objects.filter(teacher__contains=term).order_by("number")

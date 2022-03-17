@@ -9,5 +9,5 @@ urlpatterns = [
     path("teacher/<str:term>", views.teacher, name="teacher"),
     path("room/<str:term>", views.room, name="room"),
     path("class/<str:term>", views.class_, name="class"),
-    path("search/<str:term>", views.search, name="search"),
+    path("search/", views.search, name="search"),
 ]

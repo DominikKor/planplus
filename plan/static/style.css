@@ -10,3 +10,7 @@ td a, th a {
     color: inherit;
     text-decoration: inherit;
 }
+
+.search-form {
+    min-width: 300px;
+}
