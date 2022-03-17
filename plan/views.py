@@ -9,19 +9,19 @@ def plan(request):
 
 
 def teacher(request, term: str):
-    periods = Period.objects.filter(teacher__equals=term).order_by("number")
+    periods = Period.objects.filter(teacher=term).order_by("number")
     periods = get_unique(periods)
     return render(request, "plan/plan.html", {"source": "Lehrer", "plans": [periods], "table_head": term})
 
 
 def room(request, term: str):
-    periods = Period.objects.filter(room__equals=term).order_by("number")
+    periods = Period.objects.filter(room=term).order_by("number")
     periods = get_unique(periods)
     return render(request, "plan/plan.html", {"source": "Räume", "plans": [periods], "table_head": term})
 
 
 def class_(request, term: str):
-    periods = Period.objects.filter(plan__equals=term).order_by("number")
+    periods = Period.objects.filter(plan__cls=term).order_by("number")
     periods = get_unique(periods)
     return render(request, "plan/plan.html", {"source": "Klassen", "plans": [periods], "table_head": term})
 
