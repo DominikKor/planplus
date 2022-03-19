@@ -14,11 +14,12 @@ def update_db():
         new_plan = Plan.objects.create(cls=cls)
         plans.append(new_plan)
         for period in periods:
+            split_period = period.split()
             is_substituted = "für" in period
             is_cancelled = "---" in period
-            if period[-1] == " ":  # If no room is provided
-                period = period[:-1] + "-"
-            number, subject, teacher, room, *extra = period.split()
+            if len(split_period) <= 3:  # If no room is provided
+                split_period.append("-")
+            number, subject, teacher, room, *extra = split_period
             if is_cancelled:  # Change field positions because of "---"
                 subject = teacher
                 teacher = extra[0 if not extra[0] == "Dr." else 1]  # Remove "Dr." from name
