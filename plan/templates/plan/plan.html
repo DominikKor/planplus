@@ -5,43 +5,49 @@
 {% block content %}
     <div class="row">
         {% for plan in plans %}
+            {% if not plan %}
+                <h2 class="mt-3">Keine Ergebnisse für {{ source }} <b>{{ table_head }}</b> gefunden.</h2>
+            {% endif %}
             <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 my-2">
-                {% if source == "Suchen" %}
-                    <h3>Für Suche als {{ plan }}</h3>
+                {% if not plan.cls and plan %}
+                    <h3>Plan für {{ source }} <b>{{ table_head }}</b></h3>
                 {% endif %}
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">
-                            {% if plan.cls %}
-                                <a href="{% url "plan:class" plan.cls %}">{{ plan.cls }}</a>
-                            {% else %}
-                                {{ table_head }}
-                            {% endif %}
-                        </th>
-                        {% if not plan.cls %}<th scope="col">Klasse</th>{% endif %}
-                        <th scope="col">Lehrer</th>
-                        <th scope="col">Unterricht</th>
-                        <th scope="col">Raum</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% if plan.cls %}
-                        {% for period in plan.periods.all %}
-                            {% include "plan/tablerow.html" %}
-                        {% empty %}
-                            <tr>
-                                <th scope="row">-</th>
-                                <td colspan="3">Keine Einträge</td>
-                            </tr>
-                        {% endfor %}
-                    {% else %}
-                        {% for period in plan %}
-                            {% include "plan/tablerow.html" %}
-                        {% endfor %}
-                    {% endif %}
-                    </tbody>
-                </table>
+                {% if plan %}
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">
+                                {% if plan.cls %}
+                                    <a href="{% url "plan:class" plan.cls %}">{{ plan.cls }}</a>
+                                {% else %}
+                                    {{ table_head }}
+                                {% endif %}
+                            </th>
+                            {% if not plan.cls %}
+                                <th scope="col">Klasse</th>{% endif %}
+                            <th scope="col">Lehrer</th>
+                            <th scope="col">Unterricht</th>
+                            <th scope="col">Raum</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if plan.cls %}
+                            {% for period in plan.periods.all %}
+                                {% include "plan/tablerow.html" %}
+                            {% empty %}
+                                <tr>
+                                    <th scope="row">-</th>
+                                    <td colspan="3">Keine Einträge</td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            {% for period in plan %}
+                                {% include "plan/tablerow.html" %}
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                {% endif %}
             </div>
         {% endfor %}
     </div>
