@@ -10,8 +10,9 @@ from dotenv import load_dotenv
 
 def get_full_schedule() -> dict:
     options = Options()
-    options.headless = False
-    binary = FirefoxBinary("/usr/bin/firefox")
+    is_prod = os.getenv("ENV_NAME") == "Production"
+    options.headless = is_prod
+    binary = FirefoxBinary("/usr/bin/firefox" + "/firefox-bin" if is_prod else "")
     driver = Firefox(firefox_binary=binary, options=options)
 
     load_dotenv(os.path.join(Path(__file__).resolve().parent.parent, ".env"))

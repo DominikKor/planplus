@@ -1,0 +1,16 @@
+.red {
+    color: red !important;
+}
+
+#logo {
+    font-size: 60px;
+}
+
+td a, th a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.search-form {
+    min-width: 300px;
+}
