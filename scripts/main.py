@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 
 def get_full_schedule() -> dict:
     options = Options()
+    load_dotenv()
     is_prod = os.getenv("ENV_NAME") == "Production"
     options.headless = is_prod
     binary = FirefoxBinary("/usr/bin/firefox" + "/firefox-bin" if is_prod else "")
