@@ -52,5 +52,7 @@ def get_unique(periods):
     unique_periods = []
     for period in periods:
         if period not in unique_periods:
+            if list(periods).count(period) == 4:
+                period.plan.cls = period.plan.cls + "-D"
             unique_periods.append(period)
     return unique_periods
