@@ -1,8 +1,18 @@
 from django.db import models
 
 
+class Day(models.Model):
+    message = models.CharField(max_length=10000)
+    last_updated = models.DateTimeField()
+    date = models.DateField()
+
+    def __str__(self):
+        return f"Day {self.date}"
+
+
 class Plan(models.Model):
     cls = models.CharField(max_length=5)
+    day = models.ForeignKey(Day, related_name="plans", on_delete=models.CASCADE)
     datetime_created = models.DateTimeField(auto_now_add=True)
     datetime_updated = models.DateTimeField(auto_now=True)
 

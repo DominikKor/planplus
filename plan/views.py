@@ -1,11 +1,15 @@
+import datetime
+
 from django.shortcuts import render
 
-from .models import Plan, Period
+from .models import Plan, Period, Day
 
 
 def plan(request):
     plans = Plan.objects.all()
-    return render(request, "plan/plan.html", {"plans": plans})
+    day = Day.objects.last()
+    date = day.date.strftime("%d.%m.%Y")
+    return render(request, "plan/plan.html", {"plans": plans, "day": day, "date": date})
 
 
 def teacher(request, term: str):
