@@ -1,6 +1,6 @@
 from celery import shared_task
 import datetime
-from plan.models import Period, Plan
+from plan.models import Period, Plan, Day
 from scripts.main import get_plan
 
 
@@ -8,10 +8,18 @@ from scripts.main import get_plan
 def update_db():
     print("Updating db:", datetime.datetime.now())
     plan_dict = get_plan(refresh=True)
+    message = plan_dict["message"]
+    date = plan_dict["date"]
+    last_updated = plan_dict["last_updated"]
+    del plan_dict["message"]
+    del plan_dict["date"]
+    del plan_dict["last_updated"]
+    Day.objects.all().delete()
+    new_day = Day.objects.create(message=message, date=date, last_updated=last_updated)
     old_plans = list(Plan.objects.all())
     plans = []
     for cls, periods in plan_dict.items():
-        new_plan = Plan.objects.create(cls=cls)
+        new_plan = Plan.objects.create(cls=cls, day=new_day)
         plans.append(new_plan)
         for period in periods:
             split_period = period.split()

@@ -3,6 +3,9 @@
 {% block title %}PMG - Vertretungsplan{% endblock %}
 
 {% block content %}
+    <div>
+        {{ day.message }}
+    </div>
     <div class="row">
         {% for plan in plans %}
             {% if not plan %}

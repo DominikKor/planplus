@@ -1,3 +1,4 @@
+import datetime
 import os
 from pathlib import Path
 
@@ -33,7 +34,12 @@ def get_full_schedule() -> dict:
         driver.get("https://vplan.gymnasium-meine.de/mobil095/auswahlkl.html")
         driver.find_element(By.XPATH, f"/html/body/div[1]/div/ul/li[{i + 1}]/div/div/a").click()
         items = driver.find_elements(By.CSS_SELECTOR, ".liplanzeile")
-        class_ = driver.find_element(By.CSS_SELECTOR, "#planklkopf").text[-3:].strip()
+        _, date, _, class_, *_ = driver.find_element(By.CSS_SELECTOR, "#planklkopf").text.split()
+        if i == 0:
+            res["date"] = datetime.datetime.strptime(date, "%d.%m.%Y").strftime("%Y-%m-%d")
+            _, _, date, hour = driver.find_element(By.CSS_SELECTOR, "#planklkopf2").text.split()
+            res["last_updated"] = datetime.datetime.strptime(date[:-1] + " " + hour[:-1], "%d.%m.%Y %H:%M")
+            res["message"] = driver.find_element(By.CSS_SELECTOR, ".liinfozeile").text
         res[class_] = [item.text for item in items]
 
     driver.close()
