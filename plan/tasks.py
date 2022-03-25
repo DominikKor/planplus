@@ -27,7 +27,15 @@ def update_db():
             number, subject, teacher, room, *extra = split_period
             if is_cancelled:  # Change field positions because of "---"
                 subject = teacher
-                teacher = extra[0 if not extra[0] == "Dr." else 1]  # Remove "Dr." from name
+                # Remove "Dr." but leave "vom"
+                if "vom" in extra and "Dr." in extra:
+                    teacher = " ".join(extra[1:3])
+                elif "vom" in extra:
+                    teacher = " ".join(extra[0:2])
+                elif "Dr." in extra:
+                    teacher = extra[1]
+                else:
+                    teacher = extra[0]
                 room = ""
             Period.objects.create(plan=new_plan, number=number[:-1], room=room, teacher=teacher, subject=subject,
                                   is_substituted=is_substituted, is_cancelled=is_cancelled)

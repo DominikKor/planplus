@@ -33,12 +33,16 @@
                 </div>
             </form>
         </div>
-        <h2 style="display: inline-block; float: right;">{{ day.date }}</h2>
+        <div style="display: inline-block; float: right;">
+            <h2 style="margin: 0; text-align: right;">{{ day.date }}</h2>
+            <p style="">aktualisiert: {{ day.last_updated|date:"H:i, d.m.Y" }}</p>
+        </div>
+    </div>
+    <div style="display: inline-block">
+        <b>{{ day.info }}</b>
     </div>
     <div style="clear: both"></div>
     <div class="content">
-        <label>Info:</label><br>
-        <i class="red">{{ day.info }}</i>
         {% block content %}{% endblock %}
     </div>
 </main>

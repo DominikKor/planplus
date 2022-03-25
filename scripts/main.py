@@ -40,7 +40,7 @@ def get_full_schedule() -> dict:
         _, date, _, class_, *_ = driver.find_element(By.CSS_SELECTOR, "#planklkopf").text.split()
         if i == 0:
             # Convert date to DateTime
-            res["date"] = datetime.datetime.strptime(date, "%d.%m.%Y")#.strftime("%Y-%m-%d")
+            res["date"] = datetime.datetime.strptime(date, "%d.%m.%Y")
             # Check when the plan was last updated
             _, _, date_l_up, hour_l_up = driver.find_element(By.CSS_SELECTOR, "#planklkopf2").text.split()
             # Convert last updated time to datetime
