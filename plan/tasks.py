@@ -20,7 +20,7 @@ def update_db():
         plans.append(new_plan)
         for period in periods:
             split_period = period.split()
-            is_substituted = "für" in period
+            is_substituted = "für" in period or "statt" in period
             is_cancelled = "---" in period
             if len(split_period) <= 3:  # If no room is provided
                 split_period.append("-")
