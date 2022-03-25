@@ -33,6 +33,14 @@ if IS_PROD:
 else:
     ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
+# Custom settings
+
+USE_L10N = False
+
+# e.g. 25.03.2022
+DATE_FORMAT = "d.m.Y"
+
+DATE_INPUT_FORMATS = ['%d.%m.%Y']
 
 # Application definition
 
@@ -76,7 +84,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'planplus.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -86,7 +93,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -106,7 +112,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -117,7 +122,6 @@ TIME_ZONE = 'CET'
 USE_I18N = False
 
 USE_TZ = False
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

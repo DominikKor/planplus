@@ -33,10 +33,12 @@
                 </div>
             </form>
         </div>
-        <h2 style="display: inline-block; float: right;">{{ date }}</h2>
+        <h2 style="display: inline-block; float: right;">{{ day.date }}</h2>
     </div>
     <div style="clear: both"></div>
     <div class="content">
+        <label>Info:</label><br>
+        <i class="red">{{ day.info }}</i>
         {% block content %}{% endblock %}
     </div>
 </main>

@@ -7,15 +7,12 @@ from scripts.main import get_plan
 @shared_task
 def update_db():
     print("Updating db:", datetime.datetime.now())
-    plan_dict = get_plan(refresh=True)
-    message = plan_dict["message"]
-    date = plan_dict["date"]
-    last_updated = plan_dict["last_updated"]
-    del plan_dict["message"]
-    del plan_dict["date"]
-    del plan_dict["last_updated"]
+    plan_dict = get_plan()
+    info = plan_dict.pop("info")
+    date = plan_dict.pop("date")
+    last_updated = plan_dict.pop("last_updated")
     Day.objects.all().delete()
-    new_day = Day.objects.create(message=message, date=date, last_updated=last_updated)
+    new_day = Day.objects.create(info=info, date=date, last_updated=last_updated)
     old_plans = list(Plan.objects.all())
     plans = []
     for cls, periods in plan_dict.items():

@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Day(models.Model):
-    message = models.CharField(max_length=10000)
+    info = models.CharField(max_length=10000)
     last_updated = models.DateTimeField()
     date = models.DateField()
 
