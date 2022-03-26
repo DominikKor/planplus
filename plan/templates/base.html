@@ -38,11 +38,11 @@
             <p style="">aktualisiert: {{ day.last_updated|date:"H:i, d.m.Y" }}</p>
         </div>
     </div>
-    <div style="display: inline-block">
+    <div style="display: inline-block" class="mt-1">
         <b>{{ day.info }}</b>
     </div>
     <div style="clear: both"></div>
-    <div class="content">
+    <div class="content mt-3">
         {% block content %}{% endblock %}
     </div>
 </main>
