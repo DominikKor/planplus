@@ -10,9 +10,11 @@ def update_db():
     plan_dict = get_plan()
     info = plan_dict.pop("info")
     date = plan_dict.pop("date")
-    last_updated = plan_dict.pop("last_updated")
+    last_changed = plan_dict.pop("last_changed")
     Day.objects.all().delete()
-    new_day = Day.objects.create(info=info, date=date, last_updated=last_updated)
+    new_day = Day.objects.create(info=info, date=date, last_changed=last_changed)
+    new_day.last_updated = datetime.datetime.now()
+    new_day.save()
     old_plans = list(Plan.objects.all())
     plans = []
     for cls, periods in plan_dict.items():

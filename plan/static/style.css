@@ -15,4 +15,7 @@ td a, th a {
     min-width: 200px;
 }
 
-
+.time-right {
+    margin: 0;
+    text-align: right;
+}

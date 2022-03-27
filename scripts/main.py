@@ -41,10 +41,10 @@ def get_full_schedule() -> dict:
         if i == 0:
             # Convert date to DateTime
             res["date"] = datetime.datetime.strptime(date, "%d.%m.%Y")
-            # Check when the plan was last updated
+            # Check when the plan was last changed
             _, _, date_l_up, hour_l_up = driver.find_element(By.CSS_SELECTOR, "#planklkopf2").text.split()
-            # Convert last updated time to datetime
-            res["last_updated"] = datetime.datetime.strptime(date_l_up[:-1] + " " + hour_l_up[:-1], "%d.%m.%Y %H:%M")
+            # Convert last changed time to datetime
+            res["last_changed"] = datetime.datetime.strptime(date_l_up[:-1] + " " + hour_l_up[:-1], "%d.%m.%Y %H:%M")
             # Find daily info box
             res["info"] = driver.find_element(By.CSS_SELECTOR, ".liinfozeile").text
         res[class_] = [item.text for item in items]
