@@ -1,0 +1,34 @@
+.red {
+    color: red !important;
+}
+
+#logo {
+    font-size: 60px;
+}
+
+td a, th a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.search-form {
+    min-width: 200px;
+}
+
+.time-right {
+    margin: 0;
+    text-align: right;
+}
+
+#date-wrapper {
+    display: inline-block;
+    float: right;
+}
+
+.clear-both {
+    clear: both;
+}
+
+.inline-block {
+    display: inline-block;
+}
