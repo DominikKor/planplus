@@ -39,9 +39,11 @@
             <p class="time-right">aktualisiert: {{ day.last_updated|date:"H:i, d.m.Y" }}</p>
         </div>
     </div>
-    <div class="mt-1 inline-block">
-        <b>{{ day.info }}</b>
-    </div>
+    {% if day.info %}
+        <div class="mt-1 inline-block">
+            <b>{{ day.info }}</b>
+        </div>
+    {% endif %}
     <div class="clear-both"></div>
     <div class="content mt-3">
         {% block content %}{% endblock %}
