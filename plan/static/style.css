@@ -19,3 +19,16 @@ td a, th a {
     margin: 0;
     text-align: right;
 }
+
+#date-wrapper {
+    display: inline-block;
+    float: right;
+}
+
+.clear-both {
+    clear: both;
+}
+
+.inline-block {
+    display: inline-block;
+}

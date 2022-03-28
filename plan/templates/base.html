@@ -24,7 +24,7 @@
 
 <main class="container">
     <div class="bottom-nav w-100 mt-3">
-        <div class="w-25" style="display: inline-block;">
+        <div class="w-25 inline-block">
             <form action="{% url "plan:search" %}" method="get" class="search-form">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Suchen..."
@@ -33,16 +33,16 @@
                 </div>
             </form>
         </div>
-        <div class="mb-3" style="display: inline-block; float: right;">
+        <div class="mb-3" id="date-wrapper">
             <h2 class="time-right">{{ day.date }}</h2>
             <p class="time-right">geändert: {{ day.last_changed|date:"H:i, d.m.Y" }}</p>
             <p class="time-right">aktualisiert: {{ day.last_updated|date:"H:i, d.m.Y" }}</p>
         </div>
     </div>
-    <div style="display: inline-block" class="mt-1">
+    <div class="mt-1 inline-block">
         <b>{{ day.info }}</b>
     </div>
-    <div style="clear: both"></div>
+    <div class="clear-both"></div>
     <div class="content mt-3">
         {% block content %}{% endblock %}
     </div>
