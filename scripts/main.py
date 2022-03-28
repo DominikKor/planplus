@@ -2,6 +2,7 @@ import datetime
 import os
 from pathlib import Path
 
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver import Firefox
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
@@ -46,7 +47,10 @@ def get_full_schedule() -> dict:
             # Convert last changed time to datetime
             res["last_changed"] = datetime.datetime.strptime(date_l_up[:-1] + " " + hour_l_up[:-1], "%d.%m.%Y %H:%M")
             # Find daily info box
-            res["info"] = driver.find_element(By.CSS_SELECTOR, ".liinfozeile").text
+            try:
+                res["info"] = driver.find_element(By.CSS_SELECTOR, ".liinfozeile").text
+            except NoSuchElementException:
+                res["info"] = None
         res[class_] = [item.text for item in items]
 
     driver.close()
