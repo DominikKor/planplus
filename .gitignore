@@ -8,7 +8,6 @@ __pycache__/
 *.pyc
 *.pyo
 db.sqlite3
-staticfiles/
 static/
 originkey.de.pem
 originprivatekey.de.key
