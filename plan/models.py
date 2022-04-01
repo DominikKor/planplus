@@ -11,6 +11,14 @@ class Day(models.Model):
         return f"Day {self.date}"
 
 
+class Teacher(models.Model):
+    short_name = models.CharField(max_length=5)
+    last_name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"Teacher {self.last_name} ({self.short_name})"
+
+
 class Plan(models.Model):
     cls = models.CharField(max_length=5)
     day = models.ForeignKey(Day, related_name="plans", on_delete=models.CASCADE)
@@ -25,7 +33,7 @@ class Period(models.Model):
     plan = models.ForeignKey(Plan, related_name="periods", on_delete=models.CASCADE)
     number = models.DecimalField(decimal_places=0, max_digits=2)  # What 45minute index? e.g. 1 => 8:10-8:55
     subject = models.CharField(max_length=10)
-    teacher = models.CharField(max_length=5)  # max _should_ be 4 e.g. ("zzJz")
+    teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, null=True)
     room = models.CharField(max_length=5)
     is_substituted = models.BooleanField(default=False)
     is_cancelled = models.BooleanField(default=False)

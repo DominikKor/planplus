@@ -1,7 +1,10 @@
 from celery import shared_task
 import datetime
-from plan.models import Period, Plan, Day
-from scripts.main import get_plan
+
+from django.db.models import Q
+
+from plan.models import Period, Plan, Day, Teacher
+from scripts.get_plan import get_plan
 
 
 @shared_task
@@ -22,23 +25,28 @@ def update_db():
         plans.append(new_plan)
         for period in periods:
             split_period = period.split()
-            is_substituted = "für" in period or "statt" in period
+            is_substituted = "für" in period or "statt" in period or "verlegt von" in period
             is_cancelled = "---" in period
             if len(split_period) <= 3:  # If no room is provided
                 split_period.append("-")
-            number, subject, teacher, room, *extra = split_period
+            number, subject, teacher_short, room, *extra = split_period
             if is_cancelled:  # Change field positions because of "---"
-                subject = teacher
+                subject = teacher_short
                 # Remove "Dr." but leave "vom"
                 if "vom" in extra and "Dr." in extra:
-                    teacher = " ".join(extra[1:3])
+                    teacher_short = " ".join(extra[1:3])
                 elif "vom" in extra:
-                    teacher = " ".join(extra[0:2])
+                    teacher_short = " ".join(extra[0:2])
                 elif "Dr." in extra:
-                    teacher = extra[1]
+                    teacher_short = extra[1]
                 else:
-                    teacher = extra[0]
+                    teacher_short = extra[0]
                 room = ""
+            teacher_qs = Teacher.objects.filter(Q(short_name=teacher_short) | Q(last_name=teacher_short))
+            if list(teacher_qs):
+                teacher = teacher_qs.first()
+            else:
+                teacher = Teacher.objects.create(short_name=teacher_short, last_name=teacher_short)
             Period.objects.create(plan=new_plan, number=number[:-1], room=room, teacher=teacher, subject=subject,
                                   is_substituted=is_substituted, is_cancelled=is_cancelled)
 

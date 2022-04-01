@@ -10,8 +10,8 @@
     {% endif %}
 
     <td {% if period.is_substituted %}class="red"{% endif %}>
-        <a href="{% url "plan:teacher" period.teacher %}">
-            {{ period.teacher }}
+        <a href="{% url "plan:teacher" period.teacher.short_name %}">
+            {{ period.teacher.short_name }}
         </a>
     </td>
 

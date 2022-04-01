@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
-from .models import Day, Period
+from .models import Day, Period, Teacher
 
 
 def plan(request):
@@ -10,7 +10,8 @@ def plan(request):
 
 def teacher(request, term: str):
     day = Day.objects.last()
-    periods = Period.objects.filter(teacher=term, plan__day=day).order_by("number")
+    teacher_obj = get_object_or_404(Teacher, short_name=term)
+    periods = Period.objects.filter(teacher=teacher_obj, plan__day=day).order_by("number")
     periods = get_unique(periods)
     return render(request, "plan/plan.html", {"source": "Lehrer", "plans": [periods], "table_head": term, "day": day})
 
@@ -34,7 +35,7 @@ def search(request):
     day = Day.objects.last()
     class_periods = Period.objects.filter(plan__cls__contains=term, plan__day=day).order_by("number")
     number_periods = Period.objects.filter(number__contains=term, plan__day=day).order_by("number")
-    teacher_periods = Period.objects.filter(teacher__contains=term, plan__day=day).order_by("number")
+    teacher_periods = Period.objects.filter(teacher__short_name__contains=term, plan__day=day).order_by("number")
     room_periods = Period.objects.filter(room__contains=term, plan__day=day).order_by("number")
     subject_periods = Period.objects.filter(subject__contains=term, plan__day=day).order_by("number")
     all_results = {
