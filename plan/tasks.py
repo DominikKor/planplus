@@ -4,24 +4,46 @@ import datetime
 from django.db.models import Q
 
 from plan.models import Period, Plan, Day, Teacher
-from scripts.get_plan import get_plan
+from scripts.get_plan import get_full_schedule
 
 
 @shared_task
 def update_db():
+    # Prepare day
     print("Updating db:", datetime.datetime.now())
-    plan_dict = get_plan()
+    days = Day.objects.all()
+    plan_dict = get_full_schedule(last_changed=days.last().last_changed if days else None)
+    plan_changed = plan_dict.pop("changed")
+    # Don't update db if the plan didn't change
+    if not plan_changed:
+        day = days.last()
+        day.last_updated = datetime.datetime.now()
+        day.save()
+        return
+    print("Plan data changed")
     info = plan_dict.pop("info")
     date = plan_dict.pop("date")
     last_changed = plan_dict.pop("last_changed")
-    Day.objects.all().delete()
-    new_day = Day.objects.create(info=info, date=date, last_changed=last_changed)
-    new_day.last_updated = datetime.datetime.now()
-    new_day.save()
+    date_changed = True
+    if days.count():  # If there is a day already
+        last_day = days.last()
+        date_changed = last_day.date != date  # Does the existing day have the same date?
+    if not days.count() or date_changed:
+        # Create a new day object if there is a new date
+        day = Day(date=date, last_changed=last_changed)
+    else:
+        # Modify the last day object with the current date
+        day = days.last()
+    day.info = info
+    day.last_changed = last_changed
+    day.last_updated = datetime.datetime.now()
+    day.save()
+
+    # Update db
     old_plans = list(Plan.objects.all())
     plans = []
     for cls, periods in plan_dict.items():
-        new_plan = Plan.objects.create(cls=cls, day=new_day)
+        new_plan = Plan.objects.create(cls=cls, day=day)
         plans.append(new_plan)
         for period in periods:
             split_period = period.split()

@@ -10,7 +10,7 @@ from selenium.webdriver.firefox.options import Options
 from dotenv import load_dotenv
 
 
-def get_full_schedule() -> dict:
+def get_full_schedule(last_changed: datetime.datetime = None) -> dict:
     options = Options()
     load_dotenv()
     is_prod = os.getenv("ENV_NAME") == "Production"
@@ -20,12 +20,12 @@ def get_full_schedule() -> dict:
 
     load_dotenv(os.path.join(Path(__file__).resolve().parent.parent, ".env"))
 
-    PLAN_WEBSITE = "vplan.gymnasium-meine.de/mobil095"
-    USERNAME = os.getenv("PLAN_USERNAME")
-    PASSWORD = os.getenv("PLAN_PASSWORD")
+    plan_website = "vplan.gymnasium-meine.de/mobil095"
+    username = os.getenv("PLAN_USERNAME")
+    password = os.getenv("PLAN_PASSWORD")
 
-    driver.get(f"https://{USERNAME}:{PASSWORD}@{PLAN_WEBSITE}/")
-    driver.get(f"https://{PLAN_WEBSITE}/auswahlkl.html")
+    driver.get(f"https://{username}:{password}@{plan_website}/")
+    driver.get(f"https://{plan_website}/auswahlkl.html")
 
     number_of_classes = len(driver.find_elements(By.CSS_SELECTOR, ".mobilauswahlkl"))
 
@@ -48,6 +48,10 @@ def get_full_schedule() -> dict:
             _, _, date_l_up, hour_l_up = driver.find_element(By.CSS_SELECTOR, "#planklkopf2").text.split()
             # Convert last changed time to datetime
             res["last_changed"] = datetime.datetime.strptime(date_l_up[:-1] + " " + hour_l_up[:-1], "%d.%m.%Y %H:%M")
+            if last_changed and res["last_changed"] == last_changed:
+                driver.close()
+                return {"changed": False}
+            res["changed"] = True
             # Find daily info box
             try:
                 res["info"] = driver.find_element(By.CSS_SELECTOR, ".liinfozeile").text
@@ -58,8 +62,3 @@ def get_full_schedule() -> dict:
     driver.close()
 
     return res
-
-
-def get_plan():
-    new_schedule = get_full_schedule()
-    return new_schedule
