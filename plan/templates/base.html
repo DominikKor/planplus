@@ -24,8 +24,8 @@
 
 <main class="container">
     <div class="bottom-nav w-100 mt-3">
-        <div class="w-25 inline-block">
-            <form action="{% url "plan:search" %}" method="get" class="search-form">
+        <div class="w-25 inline-block search-form">
+            <form action="{% url "plan:search" %}" method="get">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Suchen..."
                            aria-label="Suchen..." name="q" required="required">
