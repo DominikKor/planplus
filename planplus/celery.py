@@ -9,7 +9,7 @@ app.conf.beat_schedule = {
     # Executes every 15 minutes
     'db_update': {
         'task': 'plan.tasks.update_db',
-        'schedule': crontab(minute='*/15'),
+        'schedule': crontab(minute='*/5'),
     },
 }
 
