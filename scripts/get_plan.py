@@ -35,8 +35,8 @@ def get_full_schedule(last_changed: datetime.datetime = None) -> dict:
         driver.get("https://vplan.gymnasium-meine.de/mobil095/auswahlkl.html")
         # Click on class in list
         driver.find_element(By.XPATH, f"/html/body/div[1]/div/ul/li[{i + 1}]/div/div/a").click()
-        # Go back one day
-        driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div/ul/li[1]/a").click()
+        # Go back one day (Only for holidays)
+        # driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div/ul/li[1]/a").click()
         # Find all periods
         items = driver.find_elements(By.CSS_SELECTOR, ".liplanzeile")
         # Read date + class from title
