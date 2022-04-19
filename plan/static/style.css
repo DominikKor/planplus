@@ -36,3 +36,12 @@ td a, th a {
 .inline-block {
     display: inline-block;
 }
+
+.date {
+    display: inline-block;
+}
+
+.material-icons {
+    scale: 1.5;
+    margin: 0 0.2em;
+}
