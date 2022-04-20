@@ -44,4 +44,5 @@ td a, th a {
 .material-icons {
     scale: 1.5;
     margin: 0 0.2em;
+    cursor: pointer;
 }

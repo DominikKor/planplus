@@ -36,9 +36,9 @@
         </div>
         <div class="mb-3" id="date-wrapper">
             <div class="date-actions">
-                <span class="material-icons">chevron_left</span>
+                <span class="material-icons" id="day-back">chevron_left</span>
                 <h2 class="time-right date">{{ day.date }}</h2>
-                <span class="material-icons">navigate_next</span>
+                <span class="material-icons" id="day-forward">navigate_next</span>
             </div>
             <p class="time-right">geändert: {{ day.last_changed|date:"H:i, d.m.Y" }}</p>
             <p class="time-right">aktualisiert: {{ day.last_updated|date:"H:i, d.m.Y" }}</p>
@@ -62,5 +62,25 @@
         <li class="nav-item"><a href="{% url "plan:plan" %}" class="nav-link px-2 text-muted">Home</a></li>
     </ul>
 </footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    $(function () {
+        $(".material-icons").on("click", function () {
+            const action = $(this).attr("id");
+            const date = $(".date").text();
+            $.post(
+                "{% url "plan:find_next_date" %}",
+                {date: date, action: action},
+                function (response) {
+                    console.log(response);
+                    const responseJson = JSON.parse(response)
+                    if (responseJson["success"]) {
+                        window.location.replace("{% url "plan:plan" %}?date=" + responseJson["date"])
+                    }
+                }
+            );
+        });
+    });
+</script>
 </body>
 </html>

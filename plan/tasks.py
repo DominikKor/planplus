@@ -40,7 +40,6 @@ def update_db():
     day.save()
 
     # Update db
-    old_plans = list(Plan.objects.all())
     plans = []
     for cls, periods in plan_dict.items():
         new_plan = Plan.objects.create(cls=cls, day=day)
@@ -71,6 +70,3 @@ def update_db():
                 teacher = Teacher.objects.create(short_name=teacher_short, last_name=teacher_short)
             Period.objects.create(plan=new_plan, number=number[:-1], room=room, teacher=teacher, subject=subject,
                                   is_substituted=is_substituted, is_cancelled=is_cancelled)
-
-    for old_plan in old_plans:
-        old_plan.delete()
