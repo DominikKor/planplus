@@ -73,9 +73,11 @@
                 {date: date, action: action},
                 function (response) {
                     console.log(response);
-                    const responseJson = JSON.parse(response)
+                    const responseJson = JSON.parse(response);
                     if (responseJson["success"]) {
-                        window.location.replace("{% url "plan:plan" %}?date=" + responseJson["date"])
+                        const url = new URL(window.location.href);
+                        url.searchParams.set("date", responseJson["date"]);
+                        window.location.replace(url);
                     }
                 }
             );

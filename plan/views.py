@@ -16,7 +16,6 @@ def plan(request):
         day = get_object_or_404(Day, date=date_obj)
     else:
         day = Day.objects.last()
-    request.session["date"] = str(day.date)
     return render(request, "plan/plan.html", {"plans": day.plans.all(), "day": day})
 
 
@@ -77,8 +76,8 @@ def get_unique(periods):
 
 
 def get_current_day(request):
-    if request.session["date"]:
-        date = request.session["date"]
+    date = request.GET.get("date")
+    if date:
         day = get_object_or_404(Day, date=date)
     else:
         day = Day.objects.last()
