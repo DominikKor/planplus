@@ -15,7 +15,7 @@ def plan(request):
         date_obj = datetime.datetime.strptime(date, "%Y-%m-%d").date()
         day = get_object_or_404(Day, date=date_obj)
     else:
-        day = Day.objects.last()
+        day = get_object_or_404(Day, date=datetime.date.today())
     return render(request, "plan/plan.html", {"plans": day.plans.all(), "day": day})
 
 
@@ -80,7 +80,7 @@ def get_current_day(request):
     if date:
         day = get_object_or_404(Day, date=date)
     else:
-        day = Day.objects.last()
+        day = get_object_or_404(Day, date=datetime.date.today())
     return day
 
 
