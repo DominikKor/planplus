@@ -91,13 +91,15 @@ def find_next_date(request):
     action = request.POST["action"]
     day = get_object_or_404(Day, date=date)
     next_day = day  # Should not matter, just for IDE
+    days = list(Day.objects.all())
+    day_index = days.index(day)
     if action == "day-back":
         if day == Day.objects.first():
             return HttpResponse(json.dumps({"success": False}))
-        next_day = Day.objects.get(id=day.id-1)  # Get first Day with lower pk
+        next_day = days[day_index-1]
     elif action == "day-forward":
         if day == Day.objects.last():
             return HttpResponse(json.dumps({"success": False}))
-        next_day = Day.objects.get(id=day.id+1)  # Get first Day with higher pk
+        next_day = days[day_index+1]
     print(f"Date: {date}, Action: {action}")
     return HttpResponse(json.dumps({"success": True, "date": str(next_day.date)}))  # day-month-year

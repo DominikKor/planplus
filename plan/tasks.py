@@ -29,7 +29,7 @@ def update_db():
     last_changed = plan_dict.pop("last_changed")
     date_changed = True
     if days.count():  # If there is a day already
-        date_changed = not days.get(date=date)  # Does a day with this date exist already?
+        date_changed = not days.filter(date=date)  # Does a day with this date exist already?
     if not days.count() or date_changed:
         # Create a new day object if it's the next day or there is no Day yet
         day = Day(date=date, last_changed=last_changed)
