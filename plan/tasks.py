@@ -12,11 +12,14 @@ def update_db():
     # Prepare day
     print("Updating db:", datetime.datetime.now())
     days = Day.objects.all()
-    plan_dict = get_full_schedule(last_changed=days.last().last_changed if days else None)
+    day_for_today_exists = days.exists(date=datetime.date.today())
+    plan_dict = get_full_schedule(
+        last_changed=days.get(date=datetime.date.today()).last_changed if day_for_today_exists else None
+    )
     plan_changed = plan_dict.pop("changed")
     # Don't update db if the plan didn't change
     if not plan_changed:
-        day = days.last()
+        day = days.get(date=datetime.date.today())
         day.last_updated = datetime.datetime.now()
         day.save()
         return
@@ -26,14 +29,13 @@ def update_db():
     last_changed = plan_dict.pop("last_changed")
     date_changed = True
     if days.count():  # If there is a day already
-        last_day = days.last()
-        date_changed = last_day.date != date  # Does the existing day have the same date?
+        date_changed = not days.get(date=date)  # Does a day with this date exist already?
     if not days.count() or date_changed:
-        # Create a new day object if there is a new date
+        # Create a new day object if it's the next day or there is no Day yet
         day = Day(date=date, last_changed=last_changed)
     else:
         # Modify the last day object with the current date
-        day = days.last()
+        day = days.get(date=date)
     day.info = info
     day.last_changed = last_changed
     day.last_updated = datetime.datetime.now()
@@ -41,6 +43,7 @@ def update_db():
 
     # Update db
     plans = []
+    old_plans_for_day = list(Plan.objects.filter(day=day))
     for cls, periods in plan_dict.items():
         new_plan = Plan.objects.create(cls=cls, day=day)
         plans.append(new_plan)
@@ -70,3 +73,6 @@ def update_db():
                 teacher = Teacher.objects.create(short_name=teacher_short, last_name=teacher_short)
             Period.objects.create(plan=new_plan, number=number[:-1], room=room, teacher=teacher, subject=subject,
                                   is_substituted=is_substituted, is_cancelled=is_cancelled)
+
+    for old_plan in old_plans_for_day:
+        old_plan.delete()
