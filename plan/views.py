@@ -91,7 +91,7 @@ def find_next_date(request):
     action = request.POST["action"]
     day = get_object_or_404(Day, date=date)
     next_day = day  # Should not matter, just for IDE
-    days = list(Day.objects.all())
+    days = list(Day.objects.order_by("date"))
     day_index = days.index(day)
     if action == "day-back":
         if day == Day.objects.first():
