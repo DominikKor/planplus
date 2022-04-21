@@ -12,7 +12,7 @@ def update_db():
     # Prepare day
     print("Updating db:", datetime.datetime.now())
     days = Day.objects.all()
-    day_for_today_exists = days.exists(date=datetime.date.today())
+    day_for_today_exists = days.filter(date=datetime.date.today()).exists()
     plan_dict = get_full_schedule(
         last_changed=days.get(date=datetime.date.today()).last_changed if day_for_today_exists else None
     )
