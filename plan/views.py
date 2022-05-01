@@ -9,13 +9,25 @@ from django.views.decorators.http import require_POST
 from .models import Day, Period, Teacher
 
 
+def get_fitting_date_if_not_exists(date_obj):
+    higher_days = Day.objects.filter(date__gt=date_obj)
+    if higher_days.exists():
+        day = higher_days.first()
+    else:
+        day = Day.objects.last()
+    return day
+
+
 def plan(request):
     date = request.GET.get("date")
     if date:
         date_obj = datetime.datetime.strptime(date, "%Y-%m-%d").date()
         day = get_object_or_404(Day, date=date_obj)
     else:
-        day = get_object_or_404(Day, date=datetime.date.today())
+        try:
+            day = Day.objects.get(date=datetime.datetime.today())
+        except Day.DoesNotExist:
+            day = get_fitting_date_if_not_exists(datetime.datetime.today())
     return render(request, "plan/plan.html", {"plans": day.plans.all(), "day": day})
 
 
@@ -96,10 +108,10 @@ def find_next_date(request):
     if action == "day-back":
         if day == Day.objects.first():
             return HttpResponse(json.dumps({"success": False}))
-        next_day = days[day_index-1]
+        next_day = days[day_index - 1]
     elif action == "day-forward":
         if day == Day.objects.last():
             return HttpResponse(json.dumps({"success": False}))
-        next_day = days[day_index+1]
+        next_day = days[day_index + 1]
     print(f"Date: {date}, Action: {action}")
     return HttpResponse(json.dumps({"success": True, "date": str(next_day.date)}))  # day-month-year
