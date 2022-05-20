@@ -37,6 +37,7 @@ class Period(models.Model):
     room = models.CharField(max_length=5)
     is_substituted = models.BooleanField(default=False)
     is_cancelled = models.BooleanField(default=False)
+    is_room_changed = models.BooleanField(default=False)
 
     def __eq__(self, other):
         return \

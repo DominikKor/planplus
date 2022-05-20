@@ -41,6 +41,8 @@ def get_full_schedule(last_changed: datetime.datetime = None) -> dict:
         # driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div/ul/li[3]/a").click()
         # Find all periods
         items = driver.find_elements(By.CSS_SELECTOR, ".liplanzeile")
+        # Find all periods where the room changed
+        # room_changed_items = driver.find_elements(By.CSS_SELECTOR, ".liplanzeile:has(.mobgeaendert)")
         # Read date + class from title
         _, date, _, class_, *_ = driver.find_element(By.CSS_SELECTOR, "#planklkopf").text.split()
         if i == 0:

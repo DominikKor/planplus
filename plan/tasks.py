@@ -51,6 +51,7 @@ def update_db():
             split_period = period.split()
             is_substituted = "für" in period or "statt" in period or "verlegt von" in period
             is_cancelled = "---" in period
+            is_room_changed = False
             if len(split_period) <= 3:  # If no room is provided
                 split_period.append("-")
             number, subject, teacher_short, room, *extra = split_period
@@ -67,12 +68,21 @@ def update_db():
                     teacher_short = extra[0]
                 room = ""
             teacher_qs = Teacher.objects.filter(Q(short_name=teacher_short) | Q(last_name=teacher_short))
-            if list(teacher_qs):
+            if teacher_qs.exists():
                 teacher = teacher_qs.first()
             else:
                 teacher = Teacher.objects.create(short_name=teacher_short, last_name=teacher_short)
-            Period.objects.create(plan=new_plan, number=number[:-1], room=room, teacher=teacher, subject=subject,
-                                  is_substituted=is_substituted, is_cancelled=is_cancelled)
+
+            Period.objects.create(
+                plan=new_plan,
+                number=number[:-1],
+                room=room,
+                teacher=teacher,
+                subject=subject,
+                is_substituted=is_substituted,
+                is_cancelled=is_cancelled,
+                is_room_changed=is_room_changed,
+            )
 
     for old_plan in old_plans_for_day:
         old_plan.delete()
