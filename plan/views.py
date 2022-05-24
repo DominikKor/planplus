@@ -109,16 +109,20 @@ def find_next_date(request):
     date = datetime.datetime.strptime(request.POST["date"], "%d.%m.%Y").date()
     action = request.POST["action"]
     day = get_object_or_404(Day, date=date)
-    next_day = day  # Should not matter, just for IDE
-    days = list(Day.objects.order_by("date"))
-    day_index = days.index(day)
+    next_day = None
+    days = Day.objects.order_by("date")
+    day_index = list(days).index(day)
+
     if action == "day-back":
-        if day == Day.objects.first():
+        if day == days.first():
             return HttpResponse(json.dumps({"success": False}))
         next_day = days[day_index - 1]
     elif action == "day-forward":
-        if day == Day.objects.last():
+        if day == days.last():
             return HttpResponse(json.dumps({"success": False}))
         next_day = days[day_index + 1]
+
     print(f"Date: {date}, Action: {action}")
     return HttpResponse(json.dumps({"success": True, "date": str(next_day.date)}))  # day-month-year
+
+
