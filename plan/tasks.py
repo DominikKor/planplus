@@ -45,13 +45,15 @@ def update_db():
     plans = []
     old_plans_for_day = list(Plan.objects.filter(day=day))
     for cls, periods in plan_dict.items():
+        if cls.endswith("rooms"):
+            pass
         new_plan = Plan.objects.create(cls=cls, day=day)
         plans.append(new_plan)
-        for period in periods:
+        for i, period in enumerate(periods):
             split_period = period.split()
             is_substituted = "für" in period or "statt" in period or "verlegt von" in period
             is_cancelled = "---" in period
-            is_room_changed = False
+            is_room_changed = plan_dict[cls + "rooms"][i]
             if len(split_period) <= 3:  # If no room is provided
                 split_period.append("-")
             number, subject, teacher_short, room, *extra = split_period

@@ -42,7 +42,10 @@ def get_full_schedule(last_changed: datetime.datetime = None) -> dict:
         # Find all periods
         items = driver.find_elements(By.CSS_SELECTOR, ".liplanzeile")
         # Find all periods where the room changed
-        # room_changed_items = driver.find_elements(By.CSS_SELECTOR, ".liplanzeile:has(.mobgeaendert)")
+        rooms_changed = {}
+        for item in items:
+            # True if room changed
+            rooms_changed[items.index(item)] = item.find_element(By.CSS_SELECTOR, ".mobgeaendert").size != 0
         # Read date + class from title
         _, date, _, class_, *_ = driver.find_element(By.CSS_SELECTOR, "#planklkopf").text.split()
         if i == 0:
@@ -62,6 +65,7 @@ def get_full_schedule(last_changed: datetime.datetime = None) -> dict:
             except NoSuchElementException:
                 res["info"] = None
         res[class_] = [item.text for item in items]
+        res[str(class_)+"rooms"] = rooms_changed
 
     driver.close()
 
