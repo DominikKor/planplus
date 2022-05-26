@@ -53,7 +53,7 @@ def update_db():
             split_period = period.split()
             is_substituted = "für" in period or "statt" in period or "verlegt von" in period
             is_cancelled = "---" in period
-            is_room_changed = plan_dict[cls + "rooms"][i]
+            is_room_changed = plan_dict[cls + "rooms"][i]  # plan_dicts["9Brooms"][<period index>]
             if len(split_period) <= 3:  # If no room is provided
                 split_period.append("-")
             number, subject, teacher_short, room, *extra = split_period
