@@ -14,7 +14,7 @@ def update_db():
     days = Day.objects.all()
     date_to_use = get_this_or_next_day()
     plan_dict = get_full_schedule(
-        last_changed=date_to_use.last_updated if date_to_use else None
+        last_changed=date_to_use.last_changed if date_to_use else None
     )
     plan_changed = plan_dict.pop("changed")
     # Don't update db if the plan didn't change
