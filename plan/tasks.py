@@ -45,8 +45,9 @@ def update_db():
     plans = []
     old_plans_for_day = list(Plan.objects.filter(day=day))
     for cls, periods in plan_dict.items():
+        # Skip the room_changed info
         if cls.endswith("rooms"):
-            pass
+            continue
         new_plan = Plan.objects.create(cls=cls, day=day)
         plans.append(new_plan)
         for i, period in enumerate(periods):
