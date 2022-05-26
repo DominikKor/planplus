@@ -12,9 +12,9 @@ def update_db():
     # Prepare day
     print("Updating db:", datetime.datetime.now())
     days = Day.objects.all()
-    day_for_today_exists = days.filter(date=datetime.date.today()).exists()
+    date_to_use = get_this_or_next_day()
     plan_dict = get_full_schedule(
-        last_changed=days.get(date=datetime.date.today()).last_changed if day_for_today_exists else None
+        last_changed=date_to_use.last_updated if date_to_use else None
     )
     plan_changed = plan_dict.pop("changed")
     # Don't update db if the plan didn't change
@@ -91,3 +91,19 @@ def update_db():
 
     for old_plan in old_plans_for_day:
         old_plan.delete()
+
+
+def get_this_or_next_day():
+    datetime_today = datetime.datetime.today()
+
+    # Check if today exists in the database
+    this_day = Day.objects.filter(date=datetime_today)
+    if this_day.exists():
+        return this_day.first()
+
+    # Check if there is a next day in the database
+    higher_days = Day.objects.filter(date__gt=datetime_today)
+    if higher_days.exists():
+        return higher_days.first()
+
+    return None

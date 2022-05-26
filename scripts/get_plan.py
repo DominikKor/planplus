@@ -95,6 +95,7 @@ def get_daily_information(driver: WebDriver, date, last_changed) -> dict:
     results["last_changed"] = datetime.datetime.strptime(date_l_up[:-1] + " " + hour_l_up[:-1], "%d.%m.%Y %H:%M")
     if last_changed and results["last_changed"] == last_changed:
         driver.close()
+        print("Plan didn't change")
         return {"changed": False}
     results["changed"] = True
     # Find daily info box
