@@ -15,7 +15,7 @@
         </a>
     </td>
 
-    <td>
+    <td {% if period.is_subject_changed %}class="red"{% endif %}>
         {{ period.subject }}
     </td>
 

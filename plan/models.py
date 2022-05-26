@@ -38,6 +38,7 @@ class Period(models.Model):
     is_substituted = models.BooleanField(default=False)
     is_cancelled = models.BooleanField(default=False)
     is_room_changed = models.BooleanField(default=False)
+    is_subject_changed = models.BooleanField(default=False)
 
     def __eq__(self, other):
         return \

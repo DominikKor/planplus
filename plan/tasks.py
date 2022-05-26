@@ -45,8 +45,8 @@ def update_db():
     plans = []
     old_plans_for_day = list(Plan.objects.filter(day=day))
     for cls, periods in plan_dict.items():
-        # Skip the room_changed info
-        if cls.endswith("rooms"):
+        # Skip the data_changed dicts
+        if cls.endswith("rooms") or cls.endswith("subjects"):
             continue
         new_plan = Plan.objects.create(cls=cls, day=day)
         plans.append(new_plan)
@@ -55,6 +55,7 @@ def update_db():
             is_substituted = "für" in period or "statt" in period or "verlegt von" in period
             is_cancelled = "---" in period
             is_room_changed = plan_dict[cls + "rooms"][i]  # plan_dicts["9Brooms"][<period index>]
+            is_subject_changed = plan_dict[cls + "subjects"][i]  # plan_dicts["9Bsubjects"][<period index>]
             if len(split_period) <= 3:  # If no room is provided
                 split_period.append("-")
             number, subject, teacher_short, room, *extra = split_period
@@ -85,6 +86,7 @@ def update_db():
                 is_substituted=is_substituted,
                 is_cancelled=is_cancelled,
                 is_room_changed=is_room_changed,
+                is_subject_changed=is_subject_changed,
             )
 
     for old_plan in old_plans_for_day:

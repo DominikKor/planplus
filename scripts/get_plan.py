@@ -8,6 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.firefox.options import Options
 from dotenv import load_dotenv
+from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 
 
@@ -58,23 +59,34 @@ def get_period_data_for_all_classes(driver, last_changed) -> dict:
         # driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div/ul/li[3]/a").click()
         # Find all periods
         items = driver.find_elements(By.CSS_SELECTOR, ".liplanzeile")
+
         # Find all periods where the room changed
-        rooms_changed = {}
-        for item in items:
-            # True if room changed
-            rooms_changed[items.index(item)] = \
-                check_if_web_element_contains_element_by_css_selector(item, ".mobraum.mobgeaendert")
+        rooms_changed = get_changed_data_by_red_color(items, ".mobraum.mobgeaendert")
+
+        # Find all periods where the subject changed
+        subjects_changed = get_changed_data_by_red_color(items, ".mobfach.mobgeaendert")
+
         # Read date + class from title
         _, date, _, class_, *_ = driver.find_element(By.CSS_SELECTOR, "#planklkopf").text.split()
         if i == 0:
             results = get_daily_information(driver, date, last_changed)
         results[class_] = [item.text for item in items]
         results[str(class_) + "rooms"] = rooms_changed
+        results[str(class_) + "subjects"] = subjects_changed
 
     return results
 
 
-def get_daily_information(driver, date, last_changed) -> dict:
+def get_changed_data_by_red_color(items, css_selector: str) -> dict:
+    results = {}
+    for item in items:
+        # True if data changed
+        results[items.index(item)] = check_if_web_element_contains_element_by_css_selector(item, css_selector)
+
+    return results
+
+
+def get_daily_information(driver: WebDriver, date, last_changed) -> dict:
     # Convert date to DateTime
     results = {"date": datetime.datetime.strptime(date, "%d.%m.%Y")}
     # Check when the plan was last changed
@@ -87,6 +99,7 @@ def get_daily_information(driver, date, last_changed) -> dict:
     results["changed"] = True
     # Find daily info box
     try:
+        # noinspection PyTypedDict
         results["info"] = driver.find_element(By.CSS_SELECTOR, ".liinfozeile").text
     except NoSuchElementException:
         results["info"] = None
