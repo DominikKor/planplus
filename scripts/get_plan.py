@@ -5,25 +5,28 @@ from pathlib import Path
 from dotenv import load_dotenv
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver import Chrome
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 
 
 def get_full_schedule(last_changed: datetime.datetime = None) -> dict:
-    driver = Chrome()
-
     load_dotenv(os.path.join(Path(__file__).resolve().parent.parent, ".env"))
 
     plan_website = "vplan.gymnasium-meine.de/mobil095"
     username = os.getenv("PLAN_USERNAME")
     password = os.getenv("PLAN_PASSWORD")
+    is_prod = os.getenv("ENV_NAME") == "Production"
+
+    options = Options()
+    options.headless = not is_prod
+    driver = Chrome(options=options)
 
     driver.get(f"https://{username}:{password}@{plan_website}/")
-
     driver.get(f"https://{plan_website}/auswahlkl.html")
 
-    day_information = get_period_data_for_all_classes(driver, last_changed, plan_website)
+    day_information = get_period_data_for_all_classes(driver, last_changed)
 
     driver.close()
 
@@ -39,7 +42,7 @@ def check_if_web_element_contains_element_by_css_selector(element: WebElement, c
         return True
 
 
-def get_period_data_for_all_classes(driver, last_changed, plan_website) -> dict:
+def get_period_data_for_all_classes(driver, last_changed) -> dict:
     total_classes = len(driver.find_elements(By.CSS_SELECTOR, ".mobilauswahlkl"))
     results = {}
 
