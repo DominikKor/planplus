@@ -1,20 +1,20 @@
-from celery import shared_task
 import datetime
 
+import django
+from celery import shared_task
 from django.db.models import Q
 
-from plan.models import Period, Plan, Day, Teacher
 from scripts.get_plan import get_full_schedule
 
 
 @shared_task
-def update_db():
+def update_db(force_update=False):
     # Prepare day
     print("Updating db:", datetime.datetime.now())
     days = Day.objects.all()
     date_to_use = get_this_or_next_day()
     plan_dict = get_full_schedule(
-        last_changed=date_to_use.last_changed if date_to_use else None
+        last_changed=date_to_use.last_changed if date_to_use and not force_update else None
     )
     plan_changed = plan_dict.pop("changed")
     # Don't update db if the plan didn't change
@@ -57,8 +57,17 @@ def update_db():
             is_room_changed = plan_dict[cls + "rooms"][i]  # plan_dicts["9Brooms"][<period index>]
             is_subject_changed = plan_dict[cls + "subjects"][i]  # plan_dicts["9Bsubjects"][<period index>]
             if len(split_period) <= 3:  # If no room is provided
-                split_period.append("-")
-            number, subject, teacher_short, room, *extra = split_period
+                # Append as many "-" as needed
+                needed_dashes = (4 - len(split_period)) * ["-"]
+                split_period.extend(needed_dashes)
+            try:
+                number, subject, teacher_short, room, *extra = split_period
+            except ValueError:
+                print("Date:", date)
+                print("Class:", cls)
+                print("Period:", period)
+                print(split_period)
+                raise ValueError("not enough values to unpack (See print statements above for details)")
             if is_cancelled:  # Change field positions because of "---"
                 subject = teacher_short
                 # Remove "Dr." but leave "vom"
@@ -107,3 +116,11 @@ def get_this_or_next_day():
         return higher_days.first()
 
     return None
+
+
+if __name__ == '__main__':
+    django.setup()
+    # Requires django.setup to be run first
+    from plan.models import Day, Plan, Period, Teacher
+
+    update_db(force_update=True)

@@ -2,23 +2,16 @@ import datetime
 import os
 from pathlib import Path
 
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver import Firefox
-from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-from selenium.webdriver.firefox.options import Options
 from dotenv import load_dotenv
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver import Chrome
+from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 
 
 def get_full_schedule(last_changed: datetime.datetime = None) -> dict:
-    options = Options()
-    load_dotenv()
-    is_prod = os.getenv("ENV_NAME") == "Production"
-    options.headless = is_prod
-    binary = FirefoxBinary("/usr/bin/firefox" + "/firefox-bin" if is_prod else "")
-    driver = Firefox(firefox_binary=binary, options=options)
+    driver = Chrome()
 
     load_dotenv(os.path.join(Path(__file__).resolve().parent.parent, ".env"))
 
@@ -27,9 +20,10 @@ def get_full_schedule(last_changed: datetime.datetime = None) -> dict:
     password = os.getenv("PLAN_PASSWORD")
 
     driver.get(f"https://{username}:{password}@{plan_website}/")
+
     driver.get(f"https://{plan_website}/auswahlkl.html")
 
-    day_information = get_period_data_for_all_classes(driver, last_changed)
+    day_information = get_period_data_for_all_classes(driver, last_changed, plan_website)
 
     driver.close()
 
@@ -45,14 +39,14 @@ def check_if_web_element_contains_element_by_css_selector(element: WebElement, c
         return True
 
 
-def get_period_data_for_all_classes(driver, last_changed) -> dict:
+def get_period_data_for_all_classes(driver, last_changed, plan_website) -> dict:
     total_classes = len(driver.find_elements(By.CSS_SELECTOR, ".mobilauswahlkl"))
     results = {}
 
     for i in range(total_classes):
-        driver.get("https://vplan.gymnasium-meine.de/mobil095/auswahlkl.html")
         # Click on class in list
         driver.find_element(By.XPATH, f"/html/body/div[1]/div/ul/li[{i + 1}]/div/div/a").click()
+
         # Go back one day
         # driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div/ul/li[1]/a").click()
         # Go forward one day
@@ -73,6 +67,9 @@ def get_period_data_for_all_classes(driver, last_changed) -> dict:
         results[class_] = [item.text for item in items]
         results[str(class_) + "rooms"] = rooms_changed
         results[str(class_) + "subjects"] = subjects_changed
+
+        # Move back to class list
+        driver.back()
 
     return results
 
