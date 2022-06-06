@@ -4,6 +4,10 @@ import django
 from celery import shared_task
 from django.db.models import Q
 
+# Only import models when NOT run as standalone script here, otherwise in the name-main if
+if not __name__ == '__main__':
+    from plan.models import Day, Plan, Period, Teacher
+
 from scripts.get_plan import get_full_schedule
 
 
