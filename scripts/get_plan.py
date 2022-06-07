@@ -7,8 +7,6 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium.webdriver.remote.webelement import WebElement
 
 
 def get_full_schedule(last_changed: datetime.datetime = None) -> dict:
@@ -19,8 +17,17 @@ def get_full_schedule(last_changed: datetime.datetime = None) -> dict:
     password = os.getenv("PLAN_PASSWORD")
     is_prod = os.getenv("ENV_NAME") == "Production"
 
+    print("is_prod:", is_prod)
+
     options = Options()
-    options.headless = not is_prod
+
+    if is_prod:
+        options.binary_location = "/usr/bin/chromium-browser"
+        options.add_argument("--no-sandbox")
+        options.add_argument("--remote-debugging-port=9222")
+        options.add_argument("--disable-dev-shm-using")
+        options.add_argument("--headless")
+
     driver = Chrome(options=options)
 
     driver.get(f"https://{username}:{password}@{plan_website}/")
@@ -28,12 +35,12 @@ def get_full_schedule(last_changed: datetime.datetime = None) -> dict:
 
     day_information = get_period_data_for_all_classes(driver, last_changed)
 
-    driver.close()
+    driver.quit()
 
     return day_information
 
 
-def check_if_web_element_contains_element_by_css_selector(element: WebElement, css_selector: str) -> bool:
+def check_if_web_element_contains_element_by_css_selector(element, css_selector: str) -> bool:
     try:
         element.find_element(By.CSS_SELECTOR, css_selector)
     except NoSuchElementException:
@@ -67,6 +74,8 @@ def get_period_data_for_all_classes(driver, last_changed) -> dict:
         _, date, _, class_, *_ = driver.find_element(By.CSS_SELECTOR, "#planklkopf").text.split()
         if i == 0:
             results = get_daily_information(driver, date, last_changed)
+            if not results["changed"]:
+                return results
         results[class_] = [item.text for item in items]
         results[str(class_) + "rooms"] = rooms_changed
         results[str(class_) + "subjects"] = subjects_changed
@@ -86,7 +95,7 @@ def get_changed_data_by_red_color(items, css_selector: str) -> dict:
     return results
 
 
-def get_daily_information(driver: WebDriver, date, last_changed) -> dict:
+def get_daily_information(driver, date, last_changed) -> dict:
     # Convert date to DateTime
     results = {"date": datetime.datetime.strptime(date, "%d.%m.%Y")}
     # Check when the plan was last changed
@@ -94,13 +103,11 @@ def get_daily_information(driver: WebDriver, date, last_changed) -> dict:
     # Convert last changed time to datetime
     results["last_changed"] = datetime.datetime.strptime(date_l_up[:-1] + " " + hour_l_up[:-1], "%d.%m.%Y %H:%M")
     if last_changed and results["last_changed"] == last_changed:
-        driver.close()
         print("Plan didn't change")
         return {"changed": False}
     results["changed"] = True
     # Find daily info box
     try:
-        # noinspection PyTypedDict
         results["info"] = driver.find_element(By.CSS_SELECTOR, ".liinfozeile").text
     except NoSuchElementException:
         results["info"] = None
