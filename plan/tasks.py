@@ -14,6 +14,7 @@ from scripts.get_plan import get_full_schedule
 
 @shared_task
 def update_db(force_update=False):
+    set_up_logger()
     logger = logging.getLogger("scripts")
     # Prepare day
     logger.info(f"Updating DB")
@@ -123,13 +124,11 @@ def get_this_or_next_day():
     return None
 
 
-def main():
+def set_up_logger():
     # Set up logger
     from scripts.log import configure_logger
     logger = configure_logger("scripts")
     logger.debug("Set up logger")
-
-    update_db()
 
 
 if __name__ == '__main__':
@@ -137,4 +136,4 @@ if __name__ == '__main__':
     # Requires django.setup to be run first
     from plan.models import Day, Plan, Period, Teacher
 
-    main()
+    update_db()
