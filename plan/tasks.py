@@ -23,9 +23,8 @@ def update_db(force_update=False):
     plan_changed = plan_dict.pop("changed")
     # Don't update db if the plan didn't change
     if not plan_changed:
-        day = days.get(date=datetime.date.today())
-        day.last_updated = datetime.datetime.now()
-        day.save()
+        date_to_use.last_updated = datetime.datetime.now()
+        date_to_use.save()
         return
     print("Plan data changed")
     info = plan_dict.pop("info")
