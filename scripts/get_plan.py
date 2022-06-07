@@ -1,4 +1,5 @@
 import datetime
+import logging
 import os
 from pathlib import Path
 
@@ -11,13 +12,14 @@ from selenium.webdriver.common.by import By
 
 def get_full_schedule(last_changed: datetime.datetime = None) -> dict:
     load_dotenv(os.path.join(Path(__file__).resolve().parent.parent, ".env"))
+    logger = logging.getLogger("scripts")
 
     plan_website = "vplan.gymnasium-meine.de/mobil095"
     username = os.getenv("PLAN_USERNAME")
     password = os.getenv("PLAN_PASSWORD")
     is_prod = os.getenv("ENV_NAME") == "Production"
 
-    print("is_prod:", is_prod)
+    logger.debug(f"is_prod: {is_prod}")
 
     options = Options()
 
@@ -49,7 +51,7 @@ def check_if_web_element_contains_element_by_css_selector(element, css_selector:
         return True
 
 
-def get_period_data_for_all_classes(driver, last_changed) -> dict:
+def get_period_data_for_all_classes(driver, last_changed, times_back=0, times_forward=0) -> dict:
     total_classes = len(driver.find_elements(By.CSS_SELECTOR, ".mobilauswahlkl"))
     results = {}
 
@@ -57,10 +59,14 @@ def get_period_data_for_all_classes(driver, last_changed) -> dict:
         # Click on class in list
         driver.find_element(By.XPATH, f"/html/body/div[1]/div/ul/li[{i + 1}]/div/div/a").click()
 
-        # Go back one day
-        # driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div/ul/li[1]/a").click()
-        # Go forward one day
-        # driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div/ul/li[3]/a").click()
+        for j in range(times_back):
+            # Go back one day
+            driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div/ul/li[1]/a").click()
+
+        for j in range(times_forward):
+            # Go forward one day
+            driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div/ul/li[3]/a").click()
+
         # Find all periods
         items = driver.find_elements(By.CSS_SELECTOR, ".liplanzeile")
 
@@ -96,6 +102,7 @@ def get_changed_data_by_red_color(items, css_selector: str) -> dict:
 
 
 def get_daily_information(driver, date, last_changed) -> dict:
+    logger = logging.getLogger("scripts")
     # Convert date to DateTime
     results = {"date": datetime.datetime.strptime(date, "%d.%m.%Y")}
     # Check when the plan was last changed
@@ -103,7 +110,7 @@ def get_daily_information(driver, date, last_changed) -> dict:
     # Convert last changed time to datetime
     results["last_changed"] = datetime.datetime.strptime(date_l_up[:-1] + " " + hour_l_up[:-1], "%d.%m.%Y %H:%M")
     if last_changed and results["last_changed"] == last_changed:
-        print("Plan didn't change")
+        logger.info("Plan data didn't change")
         return {"changed": False}
     results["changed"] = True
     # Find daily info box

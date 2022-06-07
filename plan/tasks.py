@@ -1,4 +1,5 @@
 import datetime
+import logging
 
 import django
 from celery import shared_task
@@ -13,8 +14,9 @@ from scripts.get_plan import get_full_schedule
 
 @shared_task
 def update_db(force_update=False):
+    logger = logging.getLogger("scripts")
     # Prepare day
-    print("Updating db:", datetime.datetime.now())
+    logger.info(f"Updating DB")
     days = Day.objects.all()
     date_to_use = get_this_or_next_day()
     plan_dict = get_full_schedule(
@@ -121,9 +123,18 @@ def get_this_or_next_day():
     return None
 
 
+def main():
+    # Set up logger
+    from scripts.log import configure_logger
+    logger = configure_logger("scripts")
+    logger.debug("Set up logger")
+
+    update_db()
+
+
 if __name__ == '__main__':
     django.setup()
     # Requires django.setup to be run first
     from plan.models import Day, Plan, Period, Teacher
 
-    update_db(force_update=True)
+    main()
