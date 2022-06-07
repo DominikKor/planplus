@@ -2,40 +2,49 @@ import datetime
 import logging
 
 import django
+django.setup()
+
 from celery import shared_task
 from django.db.models import Q
+from plan.models import Day, Plan, Period, Teacher
 
-# Only import models when NOT run as standalone script here, otherwise in the name-main if
-if not __name__ == '__main__':
-    from plan.models import Day, Plan, Period, Teacher
-
-from scripts.get_plan import get_full_schedule
+from scripts.get_plan import get_full_schedule, get_this_or_next_day
 
 
 @shared_task
-def update_db(force_update=False):
+def update_db(force_update: bool = False) -> None:
     set_up_logger()
     logger = logging.getLogger("scripts")
     # Prepare day
     logger.info(f"Updating DB")
-    days = Day.objects.all()
     date_to_use = get_this_or_next_day()
-    plan_dict = get_full_schedule(
+    plans_dict = get_full_schedule(
         last_changed=date_to_use.last_changed if date_to_use and not force_update else None
     )
-    plan_changed = plan_dict.pop("changed")
+    last_day = plans_dict["last_day"]
+    current_day = plans_dict["current_day"]
+
+    update_db_for_day_dict(last_day)
+    update_db_for_day_dict(current_day)
+
+
+def update_db_for_day_dict(day_dict: dict) -> None:
+    logger = logging.getLogger("scripts")
+    days = Day.objects.all()
+    date = day_dict.pop("date")
+    plan_changed = day_dict.pop("changed")
     # Don't update db if the plan didn't change
     if not plan_changed:
-        date_to_use.last_updated = datetime.datetime.now()
-        date_to_use.save()
+        day = days.get(date=date)
+        day.last_updated = datetime.datetime.now()
+        day.save()
         return
-    print("Plan data changed")
-    info = plan_dict.pop("info")
-    date = plan_dict.pop("date")
-    last_changed = plan_dict.pop("last_changed")
+    logger.info(f"Plan data changed (for {date.strftime('%d.%m.%Y')})")
+    info = day_dict.pop("info")
+    last_changed = day_dict.pop("last_changed")
     date_changed = True
     if days.count():  # If there is a day already
-        date_changed = not days.filter(date=date)  # Does a day with this date exist already?
+        date_changed = not days.filter(date=date).exists()  # Does a day with this date exist already?
     if not days.count() or date_changed:
         # Create a new day object if it's the next day or there is no Day yet
         day = Day(date=date, last_changed=last_changed)
@@ -50,7 +59,7 @@ def update_db(force_update=False):
     # Update db
     plans = []
     old_plans_for_day = list(Plan.objects.filter(day=day))
-    for cls, periods in plan_dict.items():
+    for cls, periods in day_dict.items():
         # Skip the data_changed dicts
         if cls.endswith("rooms") or cls.endswith("subjects"):
             continue
@@ -60,8 +69,8 @@ def update_db(force_update=False):
             split_period = period.split()
             is_substituted = "für" in period or "statt" in period or "verlegt von" in period
             is_cancelled = "---" in period
-            is_room_changed = plan_dict[cls + "rooms"][i]  # plan_dicts["9Brooms"][<period index>]
-            is_subject_changed = plan_dict[cls + "subjects"][i]  # plan_dicts["9Bsubjects"][<period index>]
+            is_room_changed = day_dict[cls + "rooms"][i]  # plan_dicts["9Brooms"][<period index>]
+            is_subject_changed = day_dict[cls + "subjects"][i]  # plan_dicts["9Bsubjects"][<period index>]
             if len(split_period) <= 3:  # If no room is provided
                 # Append as many "-" as needed
                 needed_dashes = (4 - len(split_period)) * ["-"]
@@ -108,22 +117,6 @@ def update_db(force_update=False):
         old_plan.delete()
 
 
-def get_this_or_next_day():
-    datetime_today = datetime.datetime.today()
-
-    # Check if today exists in the database
-    this_day = Day.objects.filter(date=datetime_today)
-    if this_day.exists():
-        return this_day.first()
-
-    # Check if there is a next day in the database
-    higher_days = Day.objects.filter(date__gt=datetime_today)
-    if higher_days.exists():
-        return higher_days.first()
-
-    return None
-
-
 def set_up_logger():
     # Set up logger
     from scripts.log import configure_logger
@@ -132,8 +125,4 @@ def set_up_logger():
 
 
 if __name__ == '__main__':
-    django.setup()
-    # Requires django.setup to be run first
-    from plan.models import Day, Plan, Period, Teacher
-
     update_db()

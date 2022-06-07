@@ -9,6 +9,8 @@ from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
+from plan.models import Day
+
 
 def get_full_schedule(last_changed: datetime.datetime = None) -> dict:
     load_dotenv(os.path.join(Path(__file__).resolve().parent.parent, ".env"))
@@ -31,15 +33,26 @@ def get_full_schedule(last_changed: datetime.datetime = None) -> dict:
         options.add_argument("--headless")
 
     driver = Chrome(options=options)
+    logger.debug("Browser started")
 
     driver.get(f"https://{username}:{password}@{plan_website}/")
     driver.get(f"https://{plan_website}/auswahlkl.html")
 
+    days = Day.objects.all()
+    last_day_last_changed = days[list(days).index(get_this_or_next_day()) - 1].last_changed
+
     day_information = get_period_data_for_all_classes(driver, last_changed)
+    driver.get(f"https://{plan_website}/auswahlkl.html")
+    day_before_information = get_period_data_for_all_classes(driver, last_day_last_changed, times_back=1)
+
+    results = {
+        "last_day": day_before_information,
+        "current_day": day_information,
+    }
 
     driver.quit()
 
-    return day_information
+    return results
 
 
 def check_if_web_element_contains_element_by_css_selector(element, css_selector: str) -> bool:
@@ -104,14 +117,15 @@ def get_changed_data_by_red_color(items, css_selector: str) -> dict:
 def get_daily_information(driver, date, last_changed) -> dict:
     logger = logging.getLogger("scripts")
     # Convert date to DateTime
-    results = {"date": datetime.datetime.strptime(date, "%d.%m.%Y")}
+    datetime_date = datetime.datetime.strptime(date, "%d.%m.%Y")
+    results = {"date": datetime_date}
     # Check when the plan was last changed
     _, _, date_l_up, hour_l_up = driver.find_element(By.CSS_SELECTOR, "#planklkopf2").text.split()
     # Convert last changed time to datetime
     results["last_changed"] = datetime.datetime.strptime(date_l_up[:-1] + " " + hour_l_up[:-1], "%d.%m.%Y %H:%M")
     if last_changed and results["last_changed"] == last_changed:
-        logger.info("Plan data didn't change")
-        return {"changed": False}
+        logger.info(f"Plan data didn't change (for {datetime_date.strftime('%d.%m.%Y')})")
+        return {"changed": False, "date": datetime_date}
     results["changed"] = True
     # Find daily info box
     try:
@@ -120,3 +134,19 @@ def get_daily_information(driver, date, last_changed) -> dict:
         results["info"] = None
 
     return results
+
+
+def get_this_or_next_day():
+    datetime_today = datetime.datetime.today()
+
+    # Check if today exists in the database
+    this_day = Day.objects.filter(date=datetime_today)
+    if this_day.exists():
+        return this_day.first()
+
+    # Check if there is a next day in the database
+    higher_days = Day.objects.filter(date__gt=datetime_today)
+    if higher_days.exists():
+        return higher_days.first()
+
+    return None
