@@ -25,6 +25,10 @@ def get_full_schedule(last_changed: datetime.datetime = None) -> dict:
 
     options = Options()
 
+    # options.add_argument(
+    #   "--user-agent=\"Mozilla/5.0 (Windows Phone 10.0; Android 4.2.1; Microsoft; Lumia 640 XL LTE) AppleWebKit/537.36"
+    #   " (KHTML, like Gecko) Chrome/42.0.2311.135 Mobile Safari/537.36 Edge/12.10166\""
+    # )
     if is_prod:
         options.binary_location = "/usr/bin/chromium-browser"
         options.add_argument("--no-sandbox")
@@ -39,7 +43,11 @@ def get_full_schedule(last_changed: datetime.datetime = None) -> dict:
     driver.get(f"https://{plan_website}/auswahlkl.html")
 
     days = Day.objects.all()
-    last_day_last_changed = days[list(days).index(get_this_or_next_day()) - 1].last_changed
+
+    if current_day := get_this_or_next_day():
+        last_day_last_changed = days[list(days).index(current_day) - 1].last_changed
+    else:
+        last_day_last_changed = None
 
     day_information = get_period_data_for_all_classes(driver, last_changed)
     driver.get(f"https://{plan_website}/auswahlkl.html")
