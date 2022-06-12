@@ -61,7 +61,7 @@ def search(request):
     number_periods = Period.objects.filter(number__contains=term, plan__day=day).order_by("number")
     teacher_periods = Period.objects.filter(
         Q(teacher__short_name__contains=term, plan__day=day) |
-        Q(teacher__last_name__contains=term, plan__day=day)
+        Q(teacher__last_name__contains=term if len(term) >= 3 else "dontmatch", plan__day=day)
     ).order_by("number")
     room_periods = Period.objects.filter(room__contains=term, plan__day=day).order_by("number")
     subject_periods = Period.objects.filter(subject__contains=term, plan__day=day).order_by("number")

@@ -50,7 +50,7 @@ def get_full_schedule(last_changed: datetime.datetime = None) -> dict:
         "current_day": day_information,
     }
 
-    driver.quit()
+    driver.close()
 
     return results
 

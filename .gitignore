@@ -10,3 +10,5 @@ __pycache__/
 db.sqlite3
 /static/
 backups/
+db.sqlite3.stable
+debug.log

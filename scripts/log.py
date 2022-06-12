@@ -6,6 +6,10 @@ from dotenv import load_dotenv
 
 def configure_logger(name):
     logger = logging.getLogger(name)
+
+    if logger.hasHandlers():
+        return logger
+
     logger.setLevel(logging.DEBUG)
 
     formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
