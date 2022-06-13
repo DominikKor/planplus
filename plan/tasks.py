@@ -39,7 +39,6 @@ def update_db_for_day_dict(day_dict: dict) -> None:
         day.last_updated = datetime.datetime.now()
         day.save()
         return
-    logger.info(f"Plan data changed (for {date.strftime('%d.%m.%Y')})")
     info = day_dict.pop("info")
     last_changed = day_dict.pop("last_changed")
     date_changed = True

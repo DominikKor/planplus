@@ -134,6 +134,7 @@ def get_daily_information(driver, date, last_changed) -> dict:
     if last_changed and results["last_changed"] == last_changed:
         logger.info(f"Plan data didn't change (for {datetime_date.strftime('%d.%m.%Y')})")
         return {"changed": False, "date": datetime_date}
+    logger.info(f"Plan data changed (for {datetime_date.strftime('%d.%m.%Y')})")
     results["changed"] = True
     # Find daily info box
     try:
