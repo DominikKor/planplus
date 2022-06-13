@@ -125,4 +125,4 @@ def set_up_logger():
 
 
 if __name__ == '__main__':
-    update_db(force_update=True)
+    update_db()

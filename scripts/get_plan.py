@@ -146,6 +146,9 @@ def get_daily_information(driver, date, last_changed) -> dict:
 
 def get_this_or_next_day():
     datetime_today = datetime.datetime.today()
+    # After 11:55 AM, the next day is the current day
+    if datetime_today.hour > 11 or datetime_today.hour == 11 and datetime_today.minute >= 55:
+        datetime_today += datetime.timedelta(days=1)
 
     # Check if today exists in the database
     this_day = Day.objects.filter(date=datetime_today)
