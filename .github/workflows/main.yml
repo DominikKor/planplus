@@ -17,14 +17,8 @@ jobs:
       - name: Add environment variables to .env
         run: |
           echo DEBUG=0 >> .env
-          echo SQL_ENGINE=django.db.backends.postgresql >> .env
           echo DATABASE=postgres >> .env
           echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
-          echo SQL_DATABASE=${{ secrets.SQL_DATABASE }} >> .env
-          echo SQL_USER=${{ secrets.SQL_USER }} >> .env
-          echo SQL_PASSWORD=${{ secrets.SQL_PASSWORD }} >> .env
-          echo SQL_HOST=${{ secrets.SQL_HOST }} >> .env
-          echo SQL_PORT=${{ secrets.SQL_PORT }} >> .env
       - name: Set environment variables
         run: |
           echo "WEB_IMAGE=$(echo ${{env.WEB_IMAGE}} )" >> $GITHUB_ENV
