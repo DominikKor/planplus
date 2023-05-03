@@ -46,3 +46,7 @@ td a, th a {
     margin: 0 0.2em;
     cursor: pointer;
 }
+
+#timetableAccordion {
+    margin-top: 15px;
+}
