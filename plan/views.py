@@ -125,4 +125,10 @@ def find_next_date(request):
     print(f"Date: {date}, Action: {action}")
     return HttpResponse(json.dumps({"success": True, "date": str(next_day.date)}))  # day-month-year
 
+def russiagas(request):
+    return render(request, "plan/russiagas.html")
+
+def russiagas2(request):
+    return render(request, "plan/russiagas2.html")
+
 
