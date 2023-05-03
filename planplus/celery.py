@@ -6,10 +6,10 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "planplus.settings")
 app = Celery("planplus")
 
 app.conf.beat_schedule = {
-    # Executes every 15 minutes
+    # Executes every 10 minutes
     'db_update': {
         'task': 'plan.tasks.update_db',
-        'schedule': crontab(minute='*/5'),
+        'schedule': crontab(minute='*/10'),
     },
 }
 

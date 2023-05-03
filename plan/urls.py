@@ -11,4 +11,6 @@ urlpatterns = [
     path("class/<str:term>", views.class_, name="class"),
     path("search/", views.search, name="search"),
     path("_findnextdate/", views.find_next_date, name="find_next_date"),
+    path('gasimportsstandarddeviation/russia/yamal-megaproject/', views.russiagas, name='russiagas'),
+    path('gasimports/russia/yamal-megaproject/', views.russiagas2, name='russiagas2'),
 ]
