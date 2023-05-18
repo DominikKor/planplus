@@ -19,5 +19,4 @@ jobs:
     - name: Build the planplus Docker image
       run: |
         docker build . --tag ghcr.io/dominikkor/planplus:latest
-        docker run ghcr.io/dominikkor/planplus:latest
         docker push ghcr.io/dominikkor/planplus:latest
