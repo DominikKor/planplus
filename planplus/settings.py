@@ -29,7 +29,7 @@ IS_PROD = os.getenv("ENV_NAME") == "Production"
 DEBUG = not IS_PROD
 
 if IS_PROD:
-    ALLOWED_HOSTS = ["dokor.de"]
+    ALLOWED_HOSTS = [".dokor.de"]
 else:
     ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
