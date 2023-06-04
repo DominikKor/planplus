@@ -26,12 +26,12 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 IS_PROD = os.getenv("ENV_NAME") == "Production"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = not IS_PROD
+DEBUG = not not IS_PROD
 
 if IS_PROD:
     ALLOWED_HOSTS = [".dokor.de"]
 else:
-    ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+    ALLOWED_HOSTS = ["127.0.0.1", "localhost", "*"]
 
 # Custom settings
 
