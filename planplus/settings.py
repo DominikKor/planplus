@@ -31,7 +31,7 @@ DEBUG = not IS_PROD
 if IS_PROD:
     ALLOWED_HOSTS = [".pmg-plan.de", ".dokor.de"]
 else:
-    ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+    ALLOWED_HOSTS = ["*"]
 
 # Custom settings
 

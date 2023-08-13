@@ -7,11 +7,12 @@ from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
-from .models import Day, Period, Teacher
+from scripts.get_plan_xml import get_plan
+from .models import Day, Period, Teacher, FreeDay
 
 
-def get_fitting_date_if_not_exists(date_obj):
-    higher_days = Day.objects.filter(date__gt=date_obj)
+def get_next_highest_day(date_obj):
+    higher_days = Day.objects.filter(date__gte=date_obj)
     if higher_days.exists():
         day = higher_days.first()
     else:
@@ -21,15 +22,38 @@ def get_fitting_date_if_not_exists(date_obj):
 
 def plan(request):
     date = request.GET.get("date")
+    day = get_day(date)
+    # If the user requests a day that doesn't exist yet, create it
+    created_new_day = False
+    if day is None:
+        date_obj = datetime.datetime.strptime(date, "%Y-%m-%d").date()
+        date_as_string = date_obj.strftime("%A, %d. %B %Y")
+        day = Day(
+            date=date_obj, last_updated=datetime.datetime.now(), last_changed=None, date_as_string=date_as_string,
+            is_empty=True
+        )
+        day.save()
+        created_new_day = True
+    # Only re-fetch the plan if it's older than 1 minute
+    if (day.last_updated < datetime.datetime.now() - datetime.timedelta(minutes=1)) or created_new_day:
+        try:
+            # Convert date to datetime, at midnight
+            day = get_plan(datetime.datetime.combine(day.date, datetime.datetime.min.time()))
+        except ValueError:
+            pass
+    return render(request, "plan/plan.html", {"plans": day.plans.all(), "day": day})
+
+
+def get_day(date):
     if date:
         date_obj = datetime.datetime.strptime(date, "%Y-%m-%d").date()
-        day = get_object_or_404(Day, date=date_obj)
+        return Day.objects.filter(date=date_obj).first()
     else:
         try:
             day = Day.objects.get(date=datetime.datetime.today())
         except Day.DoesNotExist:
-            day = get_fitting_date_if_not_exists(datetime.datetime.today())
-    return render(request, "plan/plan.html", {"plans": day.plans.all(), "day": day})
+            day = get_next_highest_day(datetime.datetime.today())
+    return day
 
 
 def teacher(request, term: str):
@@ -108,22 +132,19 @@ def get_current_day(request):
 def find_next_date(request):
     date = datetime.datetime.strptime(request.POST["date"], "%d.%m.%Y").date()
     action = request.POST["action"]
-    day = get_object_or_404(Day, date=date)
-    next_day = None
-    days = Day.objects.order_by("date")
-    day_index = list(days).index(day)
 
     if action == "day-back":
-        if day == days.first():
-            return HttpResponse(json.dumps({"success": False}))
-        next_day = days[day_index - 1]
+        next_date = date - datetime.timedelta(days=1)
+        while FreeDay.objects.filter(date=next_date).exists() or next_date.weekday() in [5, 6]:
+            next_date -= datetime.timedelta(days=1)
     elif action == "day-forward":
-        if day == days.last():
-            return HttpResponse(json.dumps({"success": False}))
-        next_day = days[day_index + 1]
+        next_date = date + datetime.timedelta(days=1)
+        while FreeDay.objects.filter(date=next_date).exists() or next_date.weekday() in [5, 6]:
+            next_date += datetime.timedelta(days=1)
+    else:
+        next_date = None
 
-    print(f"Date: {date}, Action: {action}")
-    return HttpResponse(json.dumps({"success": True, "date": str(next_day.date)}))  # day-month-year
+    return HttpResponse(json.dumps({"success": True, "date": str(next_date)}))  # day-month-year
 
 def russiagas(request):
     return render(request, "plan/russiagas.html")

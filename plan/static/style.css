@@ -41,9 +41,9 @@ td a, th a {
     display: inline-block;
 }
 
-.material-icons {
-    scale: 1.5;
-    margin: 0 0.2em;
+.navigation-icon {
+    font-size: 32px;
+    margin: 0 0.3em;
     cursor: pointer;
 }
 
