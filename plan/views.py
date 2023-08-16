@@ -52,6 +52,8 @@ def plan(request):
     # If the user requests a day that doesn't exist yet, create it
     created_new_day = False
     if day is None:
+        if not date:
+            date = datetime.datetime.now().date().strftime("%Y-%m-%d")
         date_obj = datetime.datetime.strptime(date, "%Y-%m-%d").date()
         day_german = GERMAN_DAYS[date_obj.strftime("%A")]
         month_german = GERMAN_MONTHS[date_obj.strftime("%B")]
