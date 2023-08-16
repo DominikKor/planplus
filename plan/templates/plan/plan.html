@@ -13,10 +13,10 @@
                     <h3>Plan für {{ source }} <b>{{ table_head }}</b></h3>
                 {% endif %}
                 {% if plan %}
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="outer-table">
                         <thead>
                         <tr>
-                            <th scope="col">
+                            <th scope="col" class="col-number-title">
                                 {% if plan.cls %}
                                     <a href="{% url "plan:class" plan.cls %}">{{ plan.cls }}</a>
                                 {% else %}
@@ -26,9 +26,9 @@
                             {% if not plan.cls %}
                                 <th scope="col">Klasse</th>
                             {% endif %}
-                            <th scope="col">Lehrer</th>
-                            <th scope="col">Unterricht</th>
-                            <th scope="col">Raum</th>
+                            <th scope="col" class="col-teacher-title">Lehrer</th>
+                            <th scope="col" class="col-subject-title">Unterricht</th>
+                            <th scope="col" class="col-room-title">Raum</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -36,7 +36,7 @@
                             {% for period in plan.periods.all %}
                                 {% include "plan/tablerow.html" %}
                             {% empty %}
-                                <tr>
+                                <tr class="no-entries">
                                     <th scope="row">-</th>
                                     <td colspan="3">Keine Einträge</td>
                                 </tr>

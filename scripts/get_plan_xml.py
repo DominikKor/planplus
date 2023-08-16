@@ -47,8 +47,13 @@ def get_plan(date: datetime.datetime) -> Day:
                 date=datetime.datetime.strptime(free_day.text, "%y%m%d").date(),
             )
 
+    try:
+        info = xml.find("ZusatzInfo").find("ZiZeile").text
+    except AttributeError:
+        info = None
+
     day = Day(
-        info=xml.find("ZusatzInfo").find("ZiZeile").text,
+        info=info,
         last_changed=last_changed_date,
         last_updated=datetime.datetime.now(),
         date=date,
@@ -64,17 +69,25 @@ def get_plan(date: datetime.datetime) -> Day:
         )
 
         for period_data in klass.find("Pl").findall("Std"):
+            is_substituted = bool(period_data.find("Le").attrib.get("LeAe"))
+            is_room_changed = bool(period_data.find("Ra").attrib.get("RaAe"))
+            is_subject_changed = bool(period_data.find("Fa").attrib.get("FaAe"))
+            is_cancelled = bool(period_data.find("Fa").text == "---")
+            change_info = period_data.find("If").text if period_data.find("If") is not None else None
+            teacher_short_name = period_data.find("Le").text
+            subject = period_data.find("Fa").text
+            room = period_data.find("Ra").text
             period = Period(
                 plan=plan,
                 number=int(period_data.find("St").text),
-                subject=period_data.find("Fa").text,
-                teacher=get_first_or_create(Teacher, short_name=period_data.find("Le").text),
-                room=period_data.find("Ra").text,
-                is_substituted=bool(period_data.find("Le").attrib.get("LeAe")),
-                is_room_changed=bool(period_data.find("Ra").attrib.get("RaAe")),
-                is_subject_changed=bool(period_data.find("Fa").attrib.get("FaAe")),
-                is_cancelled=bool(period_data.find("Fa").attrib.get("FaAe")) == "---",
-                change_info=period_data.find("If").text if period_data.find("If") is not None else None,
+                subject=subject if subject else None,
+                teacher=get_first_or_create(Teacher, short_name=teacher_short_name) if teacher_short_name else None,
+                room=room if room else None,
+                is_substituted=is_substituted,
+                is_room_changed=is_room_changed,
+                is_subject_changed=is_subject_changed,
+                is_cancelled=is_cancelled,
+                change_info=change_info,
             )
 
             all_periods.append(period)

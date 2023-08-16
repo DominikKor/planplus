@@ -50,3 +50,51 @@ td a, th a {
 #timetableAccordion {
     margin-top: 15px;
 }
+
+.change-info {
+    font-size: 0.9em;
+}
+
+.change-info td {
+    padding: 2px 8px 8px 8px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table td, table th {
+    width: 20%;
+    text-align: left;
+    padding: 8px;
+}
+
+table .col-number-title, .col-number {
+    width: 15%;
+}
+
+table .col-teacher-title, .col-teacher {
+    width: 25%;
+}
+
+table .col-subject-title, .col-subject {
+    width: 35%;
+}
+
+table .col-room-title, .col-room {
+    width: 25%;
+}
+
+#outer-table > tbody > tr:not(.no-entries) > td {
+    padding: 0;
+}
+
+tr.has-info-text tr:not(.change-info) td {
+    padding-bottom: 2px;
+}
+
+tr.has-info-text tr:not(.change-info) th {
+    padding-bottom: 2px;
+}
+

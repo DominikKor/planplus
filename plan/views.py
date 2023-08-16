@@ -11,6 +11,32 @@ from scripts.get_plan_xml import get_plan
 from .models import Day, Period, Teacher, FreeDay
 
 
+GERMAN_DAYS = {
+    "Monday": "Montag",
+    "Tuesday": "Dienstag",
+    "Wednesday": "Mittwoch",
+    "Thursday": "Donnerstag",
+    "Friday": "Freitag",
+    "Saturday": "Samstag",
+    "Sunday": "Sonntag",
+}
+
+GERMAN_MONTHS = {
+    "January": "Januar",
+    "February": "Februar",
+    "March": "März",
+    "April": "April",
+    "May": "Mai",
+    "June": "Juni",
+    "July": "Juli",
+    "August": "August",
+    "September": "September",
+    "October": "Oktober",
+    "November": "November",
+    "December": "Dezember",
+}
+
+
 def get_next_highest_day(date_obj):
     higher_days = Day.objects.filter(date__gte=date_obj)
     if higher_days.exists():
@@ -27,7 +53,9 @@ def plan(request):
     created_new_day = False
     if day is None:
         date_obj = datetime.datetime.strptime(date, "%Y-%m-%d").date()
-        date_as_string = date_obj.strftime("%A, %d. %B %Y")
+        day_german = GERMAN_DAYS[date_obj.strftime("%A")]
+        month_german = GERMAN_MONTHS[date_obj.strftime("%B")]
+        date_as_string = date_obj.strftime(f"{day_german}, %d. {month_german} %Y")
         day = Day(
             date=date_obj, last_updated=datetime.datetime.now(), last_changed=None, date_as_string=date_as_string,
             is_empty=True

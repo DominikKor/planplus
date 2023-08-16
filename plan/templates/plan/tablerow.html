@@ -1,31 +1,57 @@
-<tr {% if period.is_cancelled %}class="table-danger"{% endif %}>
-    <th scope="row">{{ period.number }}</th>
+<tr class="{% if period.is_cancelled %}table-danger{% endif %} {% if period.change_info %}has-info-text{% endif %}">
+    <td colspan="99">
+        <table>
+            <tr>
+                <th scope="row" class="col-number">{{ period.number }}</th>
 
-    {% if not plan.cls %}
-        <td>
-        <a href="{% url "plan:class" period.plan.cls %}">
-                {{ period.plan.cls }}
-            </a>
-        </td>
-    {% endif %}
+                {% if not plan.cls %}
+                    <td>
+                        <a href="{% url "plan:class" period.plan.cls %}">
+                            {{ period.plan.cls }}
+                        </a>
+                    </td>
+                {% endif %}
 
-    <td {% if period.is_substituted %}class="red"{% endif %}>
-        <a href="{% url "plan:teacher" period.teacher.short_name %}">
-            {{ period.teacher.short_name }}
-        </a>
-    </td>
+                <td class="col-teacher {% if period.is_substituted %}red{% endif %}">
+                    {% if period.is_cancelled %}
+                        Fällt aus
+                    {% else %}
+                        {% if period.teacher %}
+                            <a href="{% url "plan:teacher" period.teacher.short_name %}">
+                                {{ period.teacher.short_name }}
+                            </a>
+                        {% else %}
+                            ---
+                        {% endif %}
+                    {% endif %}
+                </td>
 
-    <td {% if period.is_subject_changed %}class="red"{% endif %}>
-        {{ period.subject }}
-    </td>
+                <td  class="col-subject {% if period.is_subject_changed %}red{% endif %}">
+                    {% if not period.is_cancelled %}
+                        {{ period.subject|default:"---" }}
+                    {% endif %}
+                </td>
 
-    <td {% if period.is_cancelled or period.is_room_changed %}class="red"{% endif %}>
-        {% if period.is_cancelled %}
-            Fällt aus
-        {% else %}
-            <a href="{% url "plan:room" period.room %}">
-                {{ period.room }}
-            </a>
-        {% endif %}
+                <td class="col-room {% if period.is_cancelled or period.is_room_changed %}red{% endif %}">
+                    {% if not period.is_cancelled %}
+                        {% if period.room %}
+                            <a href="{% url "plan:room" period.room %}">
+                                {{ period.room }}
+                            </a>
+                        {% else %}
+                            ---
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+            {% if period.change_info %}
+                <tr class="change-info">
+                    <td class="col-number"></td>
+                    <td colspan="99">
+                        {{ period.change_info }}
+                    </td>
+                </tr>
+            {% endif %}
+        </table>
     </td>
 </tr>
