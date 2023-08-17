@@ -7,16 +7,16 @@
         {% for key, value in plans.items %}
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 my-3">
                 <h3>Suche von <b>{{ table_head }}</b> als <b>{{ key }}</b></h3>
-                <table class="table table-striped">
+                <table class="table table-striped" id="outer-table">
                     <thead>
                     <tr>
-                        <th scope="col">
+                        <th scope="col" class="col-number-title">
                             {{ table_head }}
                         </th>
-                        <th scope="col">Klasse</th>
-                        <th scope="col">Lehrer</th>
-                        <th scope="col">Unterricht</th>
-                        <th scope="col">Raum</th>
+                        <th scope="col" class="">Klasse</th>
+                        <th scope="col" class="col-teacher-title">Lehrer</th>
+                        <th scope="col" class="col-subject-title">Unterricht</th>
+                        <th scope="col" class="col-room-title">Raum</th>
                     </tr>
                     </thead>
                     <tbody>
