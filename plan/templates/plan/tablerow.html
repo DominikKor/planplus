@@ -4,36 +4,34 @@
             <tr>
                 <th scope="row" class="col-number">{{ period.number }}</th>
 
-                {% if not plan.cls %}
-                    <td>
-                        <a href="{% url "plan:class" period.plan.cls %}">
-                            {{ period.plan.cls }}
-                        </a>
-                    </td>
-                {% endif %}
-
-                <td class="col-teacher {% if period.is_substituted %}red{% endif %}">
-                    {% if period.is_cancelled %}
-                        Fällt aus
-                    {% else %}
-                        {% if period.teacher %}
-                            <a href="{% url "plan:teacher" period.teacher.short_name %}">
-                                {{ period.teacher.short_name }}
+                {% if not period.is_cancelled %}
+                    {% if not plan.cls %}
+                        <td>
+                            <a href="{% url "plan:class" period.plan.cls %}">
+                                {{ period.plan.cls }}
                             </a>
-                        {% else %}
-                            ---
-                        {% endif %}
+                        </td>
                     {% endif %}
-                </td>
 
-                <td  class="col-subject {% if period.is_subject_changed %}red{% endif %}">
-                    {% if not period.is_cancelled %}
+                    <td  class="col-subject {% if period.is_subject_changed %}red{% endif %}">
                         {{ period.subject|default:"---" }}
-                    {% endif %}
-                </td>
+                    </td>
 
-                <td class="col-room {% if period.is_cancelled or period.is_room_changed %}red{% endif %}">
-                    {% if not period.is_cancelled %}
+                    <td class="col-teacher {% if period.is_substituted %}red{% endif %}">
+                        {% if period.is_cancelled %}
+                            Fällt aus
+                        {% else %}
+                            {% if period.teacher %}
+                                <a href="{% url "plan:teacher" period.teacher.short_name %}">
+                                    {{ period.teacher.short_name }}
+                                </a>
+                            {% else %}
+                                ---
+                            {% endif %}
+                        {% endif %}
+                    </td>
+
+                    <td class="col-room {% if period.is_room_changed %}red{% endif %}">
                         {% if period.room %}
                             <a href="{% url "plan:room" period.room %}">
                                 {{ period.room }}
@@ -41,8 +39,12 @@
                         {% else %}
                             ---
                         {% endif %}
-                    {% endif %}
-                </td>
+                    </td>
+                {% else %}
+                    <td class="red col-cancelled" colspan="99">
+                        Fällt aus
+                    </td>
+                {% endif %}
             </tr>
             {% if period.change_info %}
                 <tr class="change-info">

@@ -74,16 +74,20 @@ table .col-number-title, .col-number {
     width: 15%;
 }
 
-table .col-teacher-title, .col-teacher {
-    width: 25%;
-}
-
 table .col-subject-title, .col-subject {
     width: 35%;
 }
 
+table .col-teacher-title, .col-teacher {
+    width: 25%;
+}
+
 table .col-room-title, .col-room {
     width: 25%;
+}
+
+table .col-cancelled {
+    width: 85%;
 }
 
 #outer-table > tbody > tr:not(.no-entries) > td {
