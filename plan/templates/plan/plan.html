@@ -18,7 +18,7 @@
                         <tr>
                             <th scope="col" class="col-number-title">
                                 {% if plan.cls %}
-                                    <a href="{% url "plan:class" plan.cls %}">{{ plan.cls }}</a>
+                                    <a href="{% url "plan:class" plan.cls %}{% if request.GET %}?{% for key, value in request.GET.items %}{{ key }}={{ value|urlencode }}{% if not forloop.last %}&{% endif %}{% endfor %}{% endif %}">{{ plan.cls }}</a>
                                 {% else %}
                                     {{ table_head }}
                                 {% endif %}

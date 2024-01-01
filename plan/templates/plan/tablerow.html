@@ -7,7 +7,7 @@
                 {% if not period.is_cancelled %}
                     {% if not plan.cls %}
                         <td>
-                            <a href="{% url "plan:class" period.plan.cls %}">
+                            <a href="{% url "plan:class" period.plan.cls %}{% if request.GET %}?{% for key, value in request.GET.items %}{{ key }}={{ value|urlencode }}{% if not forloop.last %}&{% endif %}{% endfor %}{% endif %}">
                                 {{ period.plan.cls }}
                             </a>
                         </td>
@@ -22,7 +22,7 @@
                             Fällt aus
                         {% else %}
                             {% if period.teacher %}
-                                <a href="{% url "plan:teacher" period.teacher.short_name %}">
+                                <a href="{% url "plan:teacher" period.teacher.short_name %}{% if request.GET %}?{% for key, value in request.GET.items %}{{ key }}={{ value|urlencode }}{% if not forloop.last %}&{% endif %}{% endfor %}{% endif %}">
                                     {{ period.teacher.short_name }}
                                 </a>
                             {% else %}
@@ -33,7 +33,7 @@
 
                     <td class="col-room {% if period.is_room_changed %}red{% endif %}">
                         {% if period.room %}
-                            <a href="{% url "plan:room" period.room %}">
+                            <a href="{% url "plan:room" period.room %}{% if request.GET %}?{% for key, value in request.GET.items %}{{ key }}={{ value|urlencode }}{% if not forloop.last %}&{% endif %}{% endfor %}{% endif %}">
                                 {{ period.room }}
                             </a>
                         {% else %}
