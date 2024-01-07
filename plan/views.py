@@ -47,11 +47,11 @@ def get_next_highest_day(date_obj):
 
 
 def plan(request):
-    date = request.GET.get("date")
-    day = get_day(date)
+    day = get_day(request)
     # If the user requests a day that doesn't exist yet, create it
     created_new_day = False
     if day is None:
+        date = request.GET.get("date")
         if not date:
             date = datetime.datetime.now().date().strftime("%Y-%m-%d")
         date_obj = datetime.datetime.strptime(date, "%Y-%m-%d").date()
@@ -74,7 +74,8 @@ def plan(request):
     return render(request, "plan/plan.html", {"plans": day.plans.all(), "day": day})
 
 
-def get_day(date):
+def get_day(request):
+    date = request.GET.get("date")
     if date:
         date_obj = datetime.datetime.strptime(date, "%Y-%m-%d").date()
         return Day.objects.filter(date=date_obj).first()
@@ -87,7 +88,7 @@ def get_day(date):
 
 
 def teacher(request, term: str):
-    day = get_current_day(request)
+    day = get_day(request)
     teacher_obj = get_object_or_404(Teacher, short_name=term)
     periods = Period.objects.filter(teacher=teacher_obj, plan__day=day).order_by("number")
     periods = get_unique_periods(periods)
@@ -95,14 +96,14 @@ def teacher(request, term: str):
 
 
 def room(request, term: str):
-    day = get_current_day(request)
+    day = get_day(request)
     periods = Period.objects.filter(room=term, plan__day=day).order_by("number")
     periods = get_unique_periods(periods)
     return render(request, "plan/plan.html", {"source": "Raum", "plans": [periods], "table_head": term, "day": day})
 
 
 def class_(request, term: str):
-    day = get_current_day(request)
+    day = get_day(request)
     periods = Period.objects.filter(plan__cls=term, plan__day=day).order_by("number")
     periods = get_unique_periods(periods)
     return render(request, "plan/plan.html", {"source": "Klasse", "plans": [periods], "table_head": term, "day": day})
@@ -110,7 +111,7 @@ def class_(request, term: str):
 
 def search(request):
     term = request.GET.get("q")
-    day = get_current_day(request)
+    day = get_day(request)
     class_periods = Period.objects.filter(plan__cls__contains=term, plan__day=day).order_by("number")
     number_periods = Period.objects.filter(number__contains=term, plan__day=day).order_by("number")
     teacher_periods = Period.objects.filter(
@@ -144,17 +145,6 @@ def get_unique_periods(periods):
                 period.plan.cls = period.plan.cls + "-D"  # Add "-D" to classes with courses (e. g. A-D)
             unique_periods.append(period)
     return unique_periods
-
-
-def get_current_day(request):
-    date = request.GET.get("date")
-    if date:
-        return get_object_or_404(Day, date=date)
-    try:
-        day = Day.objects.get(date=datetime.date.today())
-    except Day.DoesNotExist:
-        day = Day.objects.last()
-    return day
 
 
 @require_POST
