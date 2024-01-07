@@ -38,7 +38,7 @@ GERMAN_MONTHS = {
 
 
 def get_next_highest_day(date_obj):
-    higher_days = Day.objects.filter(date__gte=date_obj)
+    higher_days = Day.objects.filter(date__gte=date_obj).order_by("date")
     if higher_days.exists():
         day = higher_days.first()
     else:
