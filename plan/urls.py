@@ -1,3 +1,4 @@
+from django.contrib import admin
 from django.urls import path
 
 from plan import views
@@ -5,6 +6,8 @@ from plan import views
 app_name = "plan"
 
 urlpatterns = [
+    path("login/", views.login_page, name="login"),
+    path("admin/", admin.site.urls),
     path("", views.plan, name="plan"),
     path("teacher/<str:term>", views.teacher, name="teacher"),
     path("room/<str:term>", views.room, name="room"),

@@ -107,3 +107,27 @@ tr.has-info-text tr:not(.change-info) th {
     padding-bottom: 2px;
 }
 
+footer {
+    background-color: white;
+}
+
+#login-form {
+    min-width: 200px;
+    max-width: 500px;
+}
+
+#login-form label {
+    font-size: large;
+    margin-bottom: 5px;
+}
+
+.btn-outline-secondary {
+    font-size: large !important;
+    color: #1f2424 !important;
+    border-color: #1f2424 !important;
+}
+
+.btn-outline-secondary:hover, .btn-outline-secondary:active {
+    color: #fff !important;
+    background-color: #1f2424 !important;
+}

@@ -1,9 +1,13 @@
 import datetime
 import json
 
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
@@ -37,6 +41,32 @@ GERMAN_MONTHS = {
 }
 
 
+def login_page(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Check if a user with the provided username exists
+        if not User.objects.filter(username=username).exists():
+            # Display an error message if the username does not exist
+            messages.error(request, 'Invalid Username')
+            return redirect('/login/')
+
+        # Authenticate the user with the provided username and password
+        user = authenticate(username=username, password=password)
+
+        if user is None:
+            # Display an error message if authentication fails (invalid password)
+            messages.error(request, "Invalid Password")
+            return redirect('plan:login_page')
+
+        # Log in the user and redirect to the home page upon successful login
+        login(request, user)
+        return redirect("plan:plan")
+
+    return render(request, 'login.html')
+
+
 def get_next_highest_day(date_obj):
     higher_days = Day.objects.filter(date__gte=date_obj).order_by("date")
     if higher_days.exists():
@@ -46,6 +76,7 @@ def get_next_highest_day(date_obj):
     return day
 
 
+@login_required
 def plan(request):
     day = get_day(request)
     # If the user requests a day that doesn't exist yet, create it
@@ -87,6 +118,7 @@ def get_day(request):
     return day
 
 
+@login_required
 def teacher(request, term: str):
     day = get_day(request)
     teacher_obj = get_object_or_404(Teacher, short_name=term)
@@ -95,6 +127,7 @@ def teacher(request, term: str):
     return render(request, "plan/plan.html", {"source": "Lehrer", "plans": [periods], "table_head": term, "day": day})
 
 
+@login_required
 def room(request, term: str):
     day = get_day(request)
     periods = Period.objects.filter(room=term, plan__day=day).order_by("number")
@@ -102,6 +135,7 @@ def room(request, term: str):
     return render(request, "plan/plan.html", {"source": "Raum", "plans": [periods], "table_head": term, "day": day})
 
 
+@login_required
 def class_(request, term: str):
     day = get_day(request)
     periods = Period.objects.filter(plan__cls=term, plan__day=day).order_by("number")
@@ -109,6 +143,7 @@ def class_(request, term: str):
     return render(request, "plan/plan.html", {"source": "Klasse", "plans": [periods], "table_head": term, "day": day})
 
 
+@login_required
 def search(request):
     term = request.GET.get("q")
     day = get_day(request)
@@ -149,6 +184,7 @@ def get_unique_periods(periods):
 
 @require_POST
 @csrf_exempt
+@login_required
 def find_next_date(request):
     date = datetime.datetime.strptime(request.POST["date"], "%d.%m.%Y").date()
     action = request.POST["action"]

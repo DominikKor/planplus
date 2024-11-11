@@ -133,3 +133,7 @@ STATIC_ROOT = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = '/login/'
+SESSION_COOKIE_SECURE = 10 * 365 * 24 * 60 * 60  # 10 years in seconds
+SESSION_SAVE_EVERY_REQUEST = True
