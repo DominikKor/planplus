@@ -35,7 +35,7 @@
             <form action="{% url "plan:search" %}" method="GET">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Suchen..."
-                           aria-label="Suchen..." value="{{ request.GET.q|default_if_none:'' }}" required="required">
+                           aria-label="Suchen..." name="q" value="{{ request.GET.q|default_if_none:'' }}" required="required">
                     <button class="btn btn-outline-primary px-3" type="submit">Los</button>
                 </div>
                 {% if request.GET %}
