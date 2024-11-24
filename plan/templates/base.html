@@ -40,7 +40,9 @@
                 </div>
                 {% if request.GET %}
                     {% for key, value in request.GET.items %}
-                        <input type="hidden" name="{{ key }}" value="{{ value }}">
+                        {% if key != 'q' %}
+                            <input type="hidden" name="{{ key }}" value="{{ value }}">
+                        {% endif %}
                     {% endfor %}
                 {% endif %}
             </form>
